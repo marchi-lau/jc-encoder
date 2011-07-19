@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Filename:</b>
+  <%= @video.filename %>
+</p>
+
+<p>
+  <b>Duration:</b>
+  <%= @video.duration %>
+</p>
+
+<p>
+  <b>Width:</b>
+  <%= @video.width %>
+</p>
+
+<p>
+  <b>Height:</b>
+  <%= @video.height %>
+</p>
+
+
+<%= link_to 'Edit', edit_video_path(@video) %> |
+<%= link_to 'Back', videos_path %>
