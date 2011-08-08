@@ -24,7 +24,7 @@ set :deploy_to, "/Library/WebServer/Documents/#{application}/"
 # ——————————– Server Definitions ——————————–
 # Define the hostname of your server. If you have multiple servers for multiple purposes, we can define those below as well.
 # We're assuming you're using a single server for your site, but if you have a seperate asset server or database server, you can specify that here.
-role :app, "192.168.100.200", "192.168.100.201"
+role :app, "192.168.100.200"
 # role :web, "192.168.100.201"
 role :db, "192.168.100.200", :primary => true
 

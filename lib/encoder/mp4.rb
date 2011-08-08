@@ -34,13 +34,13 @@ module Encoder
               
               Notifier::Status("[Encode] AAC - #{language} - #{bitrate_audio}kbps - Start", "#{filename}")
 
-              system "mplayer '#{source}' -channels 4 -af format=s16le -ao pcm:fast:waveheader:file='#{audio_raw}' -vo null -vc null -novideo -quiet -nolirc"
+              system "/usr/local/bin/mplayer '#{source}' -channels 4 -af format=s16le -ao pcm:fast:waveheader:file='#{audio_raw}' -vo null -vc null -novideo -quiet -nolirc"
 
               # Extract Audio Channels from Audio Track
-              system "sox '#{audio_raw}' '#{audio_wav}' remix #{index + 1}"
+              system "/usr/local/bin/sox '#{audio_raw}' '#{audio_wav}' remix #{index + 1}"
 
               # Encode Audio Track into AAC
-              system "ffmpeg -y -i '#{audio_wav}' '#{audio_aac}' -ac 2 -ab #{bitrate_audio}"
+              system "/usr/local/bin/ffmpeg -y -i '#{audio_wav}' '#{audio_aac}' -ac 2 -ab #{bitrate_audio}"
               
               
               FileUtils.rm_rf(audio_wav)
@@ -56,10 +56,10 @@ module Encoder
               Notifier::Status("[Encode] AAC - #{language} - #{bitrate_audio}kbps - Start", "#{filename}")
               
               # Extract Original Audio
-              system "mplayer '#{source}' -channels 4 -af format=s16le -ao pcm:fast:waveheader:file='#{audio_raw}' -vo null -vc null -novideo -quiet -nolirc"
+              system "/usr/local/bin/mplayer '#{source}' -channels 4 -af format=s16le -ao pcm:fast:waveheader:file='#{audio_raw}' -vo null -vc null -novideo -quiet -nolirc"
                                              
               # Encoded Audio Track into AAC
-              system "ffmpeg -y -i '#{audio_raw}' '#{audio_aac}' -ac 2 -ab #{bitrate_audio}"
+              system "/usr/local/bin/ffmpeg -y -i '#{audio_raw}' '#{audio_aac}' -ac 2 -ab #{bitrate_audio}"
               
               FileUtils.rm_rf(audio_raw)
                         
@@ -92,7 +92,7 @@ module Encoder
               video_track = video.video_track(bitrate, "mp4")
               output      = video.file_output(bitrate, "mp4", language)
 
-              system "mp4box -add '#{audio_track}' '#{video_track}' -out '#{output}'"
+              system "/usr/local/bin/mp4box -add '#{audio_track}' '#{video_track}' -out '#{output}'"
             end            
           end
           
