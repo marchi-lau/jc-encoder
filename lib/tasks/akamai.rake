@@ -40,31 +40,48 @@ namespace :akamai do
     
     netstorage_hdflash_dir     = File.join("/#{cp_code}/hdflash", video.path)
     netstorage_mobile_dir      = File.join("/#{cp_code}/mobile", video.path)
+    netstorage_mobileweb_dir      = File.join("/#{cp_code}/mobileweb", video.path)
     
     #===================================================================  
     # Encode
     # Encoder::MP4(VIDEO, destination, [bitrates])
     #===================================================================
                                    
-    local_hdflash_dir = Encoder::MP4(video, hdflash_bitrates, hdflash_domain)  
-    local_mobile_dir  = Encoder::M3U8(video, m3u8_bitrates, http_domain) 
-    #Encoder::3GP(3gp_bitrates, video, local_mobile_dir)
+    local_hdflash_dir   = Encoder::MP4(video, hdflash_bitrates, hdflash_domain)  
+    local_mobile_dir    = Encoder::M3U8(video, m3u8_bitrates, http_domain) 
+    #lcoal_mobileweb_dir = Encoder::3GP(video, threegp_bitrates)
    
     #===================================================================
     # Upload / Publish
-    # Uploader::FTP(ftp_username, ftp_password, ftp_domain, source, destination)
+    # Publisher::FTP(ftp_username, ftp_password, ftp_domain, source, destination)
     #===================================================================
 
-    Uploader::FTP(ftp_username, ftp_password, ftp_domain, local_hdflash_dir, netstorage_hdflash_dir)
-    Uploader::FTP(ftp_username, ftp_password, ftp_domain, local_mobile_dir, netstorage_mobile_dir)
+    Publisher::FTP(ftp_username, ftp_password, ftp_domain, local_hdflash_dir, netstorage_hdflash_dir)
+    Publisher::FTP(ftp_username, ftp_password, ftp_domain, local_mobile_dir, netstorage_mobile_dir)
+    #Publisher::FTP(ftp_username, ftp_password, ftp_domain, local_mobileweb_dir, netstorage_mobileweb_dir)
     
     time_elapsed = distance_of_time_in_words(Time.now, time_start)
-    Notifier::Status("[Akamai] Complete. 
+    Notifier::Status("[Akamai] Publish Complete. 
                       Time Elapsed: #{time_elapsed}", "#{video.filename}")     
     
   end
   
   task :housekeep do
+  time_start = Time.now
+     cp_code = 115935
+    Video.expired.each do |video|
+      netstorage_hdflash_dir     = File.join("/#{cp_code}/hdflash", video.path)
+      netstorage_mobile_dir      = File.join("/#{cp_code}/mobile", video.path)
+      netstorage_mobileweb_dir   = File.join("/#{cp_code}/mobileweb", video.path)
+      
+      system "ssh -i '#{ENV_CONFIG['ssh_key']}' sshacs@hkjc.upload.akamai.com rm -rf '#{netstorage_hdflash_dir}'"
+      system "ssh -i '#{ENV_CONFIG['ssh_key']}' sshacs@hkjc.upload.akamai.com rm -rf '#{netstorage_mobile_dir}'"
+      system "ssh -i '#{ENV_CONFIG['ssh_key']}' sshacs@hkjc.upload.akamai.com rm -rf '#{netstorage_mobileweb_dir}'"
+  
+    end
+    
+  Notifier::Status("[Akamai] Housekeep Complete. 
+                    Time Elapsed: #{time_elapsed}", "#{expired_videos.count} Videos Offline.")     
     
   end
   

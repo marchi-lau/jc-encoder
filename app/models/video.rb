@@ -6,11 +6,11 @@ class Video < ActiveRecord::Base
   # ================================================================================================
 
   def smil
-    File.join("http://", AKAMAI_CONFIG['http_domain'],"/hdflash", "#{self.video_path}/#{self.filename}.smil")
+    File.join("http://iphone.hkjc.edgesuite.net","/hdflash", "#{self.path}/#{self.filename}.smil")
   end
   
   def m3u8
-    File.join("http://", AKAMAI_CONFIG['http_domain'], "#{self.video_path}/#{self.filename}.m3u8")
+    File.join("http://iphone.hkjc.edgesuite.net", "#{self.path}/#{self.filename}.m3u8")
   end
   
   def url
@@ -20,6 +20,7 @@ class Video < ActiveRecord::Base
   def playback_url
     "http://racing.hkjc.com/racing/video/play.asp?type=#{self.category}&date=#{self.title}&no=#{self.episode}&lang=#{self.language}"
   end
+  
   # ================================================================================================
   # Video Name Attributes
   # ================================================================================================
@@ -92,14 +93,4 @@ class Video < ActiveRecord::Base
     end
   end
   
-  def path(language = self.language)
-    case self.format
-      when 3 then
-        video_path = "/#{self.category}/#{self.year}/#{self.title}/#{self.episode}/#{language}" #replay-full_20110101_01_eng
-      when 2 then
-        video_path = "/#{self.category}/#{self.year}/#{self.title}/#{self.episode}" #trackwork_20110101_01
-      when 1 then
-        video_path = "/#{self.category}/#{self.title}" #pp_p101
-    end
-  end
 end
