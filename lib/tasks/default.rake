@@ -1,4 +1,4 @@
-  task :import, [:source] => :environment do |t, args|
+  task :export, [:source] => :environment do |t, args|
     time_start = Time.now
     
     source    = args.source    

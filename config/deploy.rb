@@ -24,9 +24,9 @@ set :deploy_to, "/Library/WebServer/Documents/#{application}/"
 # ——————————– Server Definitions ——————————–
 # Define the hostname of your server. If you have multiple servers for multiple purposes, we can define those below as well.
 # We're assuming you're using a single server for your site, but if you have a seperate asset server or database server, you can specify that here.
-role :app, "192.168.100.200"
-# role :web, "192.168.100.201"
-role :db, "192.168.100.200", :primary => true
+role :app, "192.168.100.195","192.168.100.200","192.168.100.201"
+role :web, "192.168.100.200"
+role :db, "192.168.100.201", :primary => true
 
 #role :db,  "your slave db-server here"
 namespace :ssh do
@@ -35,7 +35,7 @@ namespace :ssh do
   puts "Copying Public Keys to Server..."
   puts "Logging in with #{user}"
   
-  system "scp '/Volumes/Macintosh HD/Users/Marchi/.ssh/id_dsa.pub' #{user}@192.168.100.201:'~/'"
+  system "scp '/Volumes/Macintosh HD/Users/Marchi/.ssh/id_dsa.pub' #{user}@192.168.100.194:'~/'"
   run "mkdir -p ~/.ssh && chmod 700 ~/.ssh && touch -f ~/.ssh/authorized_keys2 && cat ~/id_dsa.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
 #  scp ./racingfocus_20201231_01_chi.mov Administrator@118.142.104.200:"/Volumes/Videos/Dropbox/Dropbox\\ -\\ Default"
 
