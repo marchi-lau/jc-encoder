@@ -35,9 +35,9 @@ class Video < ActiveRecord::Base
     end
   end
   
-  def filename
-     File.basename(self.source,  File.extname(self.source))
-  end
+  # def filename
+  #    File.basename(self.source,  File.extname(self.source))
+  # end
   
   def basename
     splits = self.filename.split("_")
