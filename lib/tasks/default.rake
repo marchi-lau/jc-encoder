@@ -1,7 +1,8 @@
   task :export, [:source] => :environment do |t, args|
     time_start = Time.now
     
-    source    = args.source    
+    source    = args.source
+    
     Rake::Task[:akamai].invoke(source)
     Rake::Task[:atnext].invoke(source) if source.include?("replay-full")
     Rake::Task[:legacy].invoke(source)

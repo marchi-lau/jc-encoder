@@ -7,10 +7,11 @@ namespace :atnext do
     # Create Video Object
     #===================================================================
     source    = args.source
+    service = "Atnext"
     video     = EncodingVideo.new(:source    => source, 
-                                  :service   => "Akamai")
+                                  :service   => service)
     
-    Notifier::Status("[Atnext] Start Publishing", "#{video.filename}")     
+    Notifier::Status("[#{service}] Start Publishing", "#{video.filename}")     
     
     #===================================================================
     # Publish Configuration
@@ -46,7 +47,7 @@ namespace :atnext do
     # No Remote Publish
     
     time_elapsed = distance_of_time_in_words(Time.now, time_start)
-    Notifier::Status("[Atnext] Complete. 
+    Notifier::Status("[#{service}] Complete. 
                       Time Elapsed: #{time_elapsed}", "#{video.filename}")     
     
   end
