@@ -101,9 +101,8 @@ module Encoder
               video_track = video.video_track(bitrate, "mp4")
                 output    = video.file_output(bitrate, "mp4", language)
 
-
               system "/usr/local/bin/mp4box -add '#{audio_track}' '#{video_track}' -out '#{output}'"
-              FileUtils.mv(output, destination) if !destination.nil?
+              FileUtils.mv(output, destination) if != video.dir_output
             end            
           end
           
