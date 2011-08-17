@@ -5,7 +5,7 @@
     
     Rake::Task[:akamai].invoke(source)
     Rake::Task[:atnext].invoke(source) if source.include?("replay-full") or source.include?("brts")
-    Rake::Task[:legacy].invoke(source)
+    Rake::Task[:legacy].invoke(source) if source.include?("replay-full")
     Rake::Task[:archive].invoke(source)
     
     time_elapsed = distance_of_time_in_words(Time.now, time_start)
@@ -61,6 +61,7 @@
     if (File.new(source).size / 1024**3) > 1                              
       local_archive_dir = Encoder::MP4(video, archive_bitrates)  
     else
+      video.export_type = ""
       FileUtils.mkdir_p(video.dir_output)
       FileUtils.mv(source, video.dir_output)
     end
