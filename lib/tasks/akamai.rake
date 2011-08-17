@@ -19,12 +19,11 @@ namespace :akamai do
     cp_code             = 115935
     
     service             = "Akamai"
-    hdflash_domain      = "hkjc-f.akamaihd.net"
-    http_domain         = "streaming.hkjc.edgesuite.net"
-
-    ftp_domain          = "hkjc.upload.akamai.com"
-    ftp_username        = "ftp-upload"
-    ftp_password        = "hkjc1234"
+    hdflash_domain      = AKAMAI_CONFIG['hdflash_domain']
+    http_domain         = AKAMAI_CONFIG['http_domain']
+    ftp_domain          = AKAMAI_CONFIG['ftp_domain']
+    ftp_username        = AKAMAI_CONFIG['ftp_username']
+    ftp_password        = AKAMAI_CONFIG['ftp_password']
     
     #===================================================================
     # Video Quality
@@ -47,9 +46,9 @@ namespace :akamai do
     # Encoder::MP4(VIDEO, destination, [bitrates])
     #===================================================================
                                    
-    local_hdflash_dir   = Encoder::MP4(video, hdflash_bitrates, hdflash_domain)  
+    local_hdflash_dir   = Encoder::MP4(video, hdflash_bitrates, nil, hdflash_domain)  
     local_mobile_dir    = Encoder::M3U8(video, m3u8_bitrates, http_domain) 
-    #lcoal_mobileweb_dir = Encoder::3GP(video, threegp_bitrates)
+    #local_mobileweb_dir = Encoder::3GP(video, threegp_bitrates)
    
     #===================================================================
     # Upload / Publish

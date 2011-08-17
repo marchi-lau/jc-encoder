@@ -12,39 +12,19 @@ namespace :atnext do
                                   :service   => service)
     
     Notifier::Status("[#{service}] Start Publishing", "#{video.filename}")     
-    
-    #===================================================================
-    # Publish Configuration
-    #===================================================================
 
-    # No Remote Publish    
-    
     #===================================================================
     # Video Quality
     #===================================================================
 
     atnext_bitrates    = [1200]
 
-    #===================================================================
-    # Remote Path Setup
-    #===================================================================
-    
-    # No Remote Publish
-    
     #===================================================================  
     # Encode
-    # Encoder::MP4(VIDEO, destination, [bitrates])
+    # Encoder::MP4(VIDEO, [bitrates])
     #===================================================================
-                                   
-    local_atnext_dir = Encoder::MP4(video, atnext_bitrates)  
-    #Encoder::3GP(3gp_bitrates, video, local_mobile_dir)
-   
-    #===================================================================
-    # Upload / Publish
-    # Publisher::FTP(ftp_username, ftp_password, ftp_domain, source, destination)
-    #===================================================================
-
-    # No Remote Publish
+    destination      = ENV_CONFIG['video_library'] + "/" + video.service  + "/" + video.category + "/" + Date.today.to_s #Override default output dir for ease access                    
+    local_atnext_dir = Encoder::MP4(video, atnext_bitrates, destination, nil)  
     
     time_elapsed = distance_of_time_in_words(Time.now, time_start)
     Notifier::Status("[#{service}] Complete. 

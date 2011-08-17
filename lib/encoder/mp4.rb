@@ -1,25 +1,34 @@
 module Encoder
   class << self
-    def MP4(video = nil, bitrates = [700,1200], hdflash_domain = nil)
-      Encoder::MP4.encode(video, bitrates, hdflash_domain)
+    def MP4(video = nil, bitrates = [700,1200], destination = nil, hdflash_domain = nil)
+      Encoder::MP4.encode(video, bitrates, destination, hdflash_domain)
     end
   end
 
     module MP4
       class << self
-        def encode(video = nil, bitrates = [700,1200],  hdflash_domain = nil)
+        def encode(video = nil, bitrates = [700,1200], destination = nil, hdflash_domain = nil)
           video.export_type = self.to_s.split("::").last
           @languages        = video.languages
           filename          = video.filename
           source            = video.source
-          bitrate_audio     = 64 
-        
-          FileUtils.rm_rf(video.dir_output)
-          FileUtils.mkdir_p(video.dir_output)
+          bitrate_audio     = 64
+          
+          if destination.nil?
+          destination       = video.dir_output
+          FileUtils.rm_rf(destination)
+          FileUtils.mkdir_p(destination)
+
+          else
+            FileUtils.mkdir_p(destination)
+            
+          end
           
           @languages.each do |language|
             FileUtils.mkdir_p(video.dir_output(language))
           end
+
+
           
           #===================================================================
           # Encode Audio
@@ -90,9 +99,11 @@ module Encoder
             bitrates.each do |bitrate|
               audio_track = video.audio_track("aac", language)
               video_track = video.video_track(bitrate, "mp4")
-              output      = video.file_output(bitrate, "mp4", language)
+                output    = video.file_output(bitrate, "mp4", language)
+
 
               system "/usr/local/bin/mp4box -add '#{audio_track}' '#{video_track}' -out '#{output}'"
+              FileUtils.mv(output, destination) if !destination.nil?
             end            
           end
           
@@ -105,6 +116,9 @@ module Encoder
             audio_track = video.audio_track("aac", language)
             FileUtils.rm_rf(audio_track)
           end
+          
+          FileUtils.rm_rf(video.dir_output) if destination != video.dir_output
+          
           #===================================================================
           # Generate SMIL
           #===================================================================
@@ -139,7 +153,7 @@ module Encoder
               File.open(file_smil, 'w') {|f| f.write(smil.to_xml) }
           end  
           end
-            return video.dir_output
+            return destination
       end #Class encode 
       
       end

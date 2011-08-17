@@ -12,15 +12,19 @@ namespace :legacy do
                                   :service   => "Legacy")
     
     Notifier::Status("[Legacy] Start Publishing", "#{video.filename}")     
+    #===================================================================
+    # Video Quality
+    #===================================================================
 
+    legacy_bitrates    = [800]
     
     #===================================================================  
     # Encode
     # Encoder::MP4(VIDEO, destination, [bitrates])
     #===================================================================
-    asf_bitrates    = [500]
-                                   
-    local_legacy_dir = Encoder::ASF(video, asf_bitrates)  
+    destination      = ENV_CONFIG['video_library'] + "/" + video.service  + "/" + Date.today.to_s#Override default output dir for ease access                    
+    local_legacy_dir = Encoder::MP4(video, legacy_bitrates, nil, destination)  
+  
    
     #===================================================================
     # Upload / Publish
