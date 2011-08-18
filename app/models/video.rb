@@ -34,14 +34,14 @@ class Video < ActiveRecord::Base
         video_path = "/#{self.category}/#{self.title}" #pp_p101
     end
   end
-  
-  def filename
-    if self.source.nil?
-      self.filename
-    else
-     File.basename(self.source,  File.extname(self.source))
-   end
-  end
+  # 
+  # def filename
+  #   if self.source.nil?
+  #     self.filename
+  #   else
+  #    File.basename(self.source,  File.extname(self.source))
+  #  end
+  # end
   
   def basename
     splits = self.filename.split("_")
