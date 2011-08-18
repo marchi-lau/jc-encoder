@@ -45,16 +45,22 @@ namespace :akamai do
     # Encode
     # Encoder::MP4(VIDEO, destination, [bitrates])
     #===================================================================
-                                   
-    local_hdflash_dir   = Encoder::MP4(video, hdflash_bitrates, nil, hdflash_domain)  
-    local_mobile_dir    = Encoder::M3U8(video, m3u8_bitrates, http_domain) 
+    #                                
+    local_hdflash_dir   = Encoder::MP4(:video => video, 
+                                       :bitrates => hdflash_bitrates, 
+                                       :hdflash_domain => hdflash_domain)  
+                                       
+    local_mobile_dir    = Encoder::M3U8(:video => video, 
+                                        :bitrates => m3u8_bitrates, 
+                                        :http_domain => http_domain) 
+                                        
     #local_mobileweb_dir = Encoder::3GP(video, threegp_bitrates)
    
     #===================================================================
     # Upload / Publish
     # Publisher::FTP(ftp_username, ftp_password, ftp_domain, source, destination)
     #===================================================================
-
+    
     Publisher::FTP(ftp_username, ftp_password, ftp_domain, local_hdflash_dir, netstorage_hdflash_dir)
     Publisher::FTP(ftp_username, ftp_password, ftp_domain, local_mobile_dir, netstorage_mobile_dir)
     #Publisher::FTP(ftp_username, ftp_password, ftp_domain, local_mobileweb_dir, netstorage_mobileweb_dir)

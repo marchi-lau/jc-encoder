@@ -1,29 +1,30 @@
 class EncodingVideo < Video
-  attr_accessor :source, :service, :export_type
+  attr_accessor :source, :service, :export_type, :destination
   
   def dir_output(language = nil)
-    if language.nil?
-      
-        case self.format
+    if language.nil? && self.destination.nil?
+      case self.format
         when 3 then
           ENV_CONFIG['video_library'] + "/" + self.service  + "/" + self.export_type + self.path.chomp("/").slice(/.+\//).chomp("/")   # To be moved to YAML
         else
           ENV_CONFIG['video_library'] + "/" + self.service  + "/" + self.export_type + self.path.chomp("/")  # To be moved to YAML
         end
       
-      else
-        
-        case self.format
-        when 3 then
+    elsif !language.nil? && self.destination.nil?
+        if self.format == 3 && self.languages.size > 1
          ENV_CONFIG['video_library'] + "/"  + self.service  + "/" + self.export_type + self.path.chomp("/").slice(/.+\//).chomp("/") + "/" + language # To be moved to YAML
         else
          ENV_CONFIG['video_library'] + "/" + self.service  + "/" + self.export_type + self.path.chomp("/")  # To be moved to YAML
         end
-
-    end
+    
+    elsif language.nil? && !self.destination.nil?
+        destination
+    elsif !language.nil? && !self.destination.nil?
+        destination + "/" + language 
+     end
   end
-  
-  def prefix(language = nil)
+
+  def prefix(language = nil)      
     self.dir_output(language) + "/" + self.basename
   end
   

@@ -1,28 +1,29 @@
 module Encoder
   class << self
-    def MP4(video = nil, bitrates = [700,1200], destination = nil, hdflash_domain = nil)
-      Encoder::MP4.encode(video, bitrates, destination, hdflash_domain)
+    def MP4(options)
+      Encoder::MP4.encode(options)
     end
   end
 
     module MP4
       class << self
-        def encode(video = nil, bitrates = [700,1200], destination = nil, hdflash_domain = nil)
+        def encode(options)
+                      video = options[:video]
+                   bitrates = options[:bitrates]
+             hdflash_domain = options[:hdflash_domain]
           video.export_type = self.to_s.split("::").last
-          @languages        = video.languages
+          if options[:languages].nil?
+            @languages        = video.languages
+          else
+            @languages        = options[:languages]
+          end
           filename          = video.filename
           source            = video.source
           bitrate_audio     = 64
           
-          if destination.nil?
           destination       = video.dir_output
-          FileUtils.rm_rf(destination)
-          FileUtils.mkdir_p(destination)
-
-          else
-            FileUtils.mkdir_p(destination)
-            
-          end
+          FileUtils.rm_rf(destination) if !video.destination.nil?
+          FileUtils.mkdir_p(destination)            
           
           @languages.each do |language|
             FileUtils.mkdir_p(video.dir_output(language))
@@ -124,7 +125,7 @@ module Encoder
           if !hdflash_domain.nil? # Ignore SMIL if no hdflash-domain
           
           @languages.each do |language|
-          file_smil = video.file_smil(language)
+           file_smil = video.file_smil(language)
                 smil = Nokogiri::XML::Builder.new do |xml|                                              
                xml.doc.create_internal_subset(
                  'smil',
@@ -142,8 +143,7 @@ module Encoder
                     xml.body {
                        xml.switch(:id => video.category) {
                          bitrates.each do |bitrate|
-                           path_smil = video.path_smil(bitrate, language)
-                           xml.video(:src => path_smil, :"system-bitrate" => bitrate*1000)
+                           xml.video(:src => video.path_smil(bitrate, language), :"system-bitrate" => bitrate*1000)
                          end
                        }
                      }

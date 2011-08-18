@@ -1,26 +1,36 @@
 module Encoder
   class << self
-    def M3U8(video = nil, bitrates = [700], http_domain = nil, destination = nil)
-      Encoder::M3U8.segment(video, bitrates, http_domain, destination)
-      
+    def M3U8(options)
+      Encoder::M3U8.segment(options)
     end
   end
 
     module M3U8
       class << self
-        def segment(video = nil, bitrates = [700], http_domain = nil, destination = nil)
-          video.export_type = self.to_s.split("::").last
+        def segment(options)
           
-          languages = video.languages
-          filename  = video.filename
-          source    = video.source
-          bitrate   = bitrates.first #No VBR
+          
+                      video = options[:video]
+                   bitrate = options[:bitrates].first  #No VBR
+                http_domain = options[:http_domain]
+                
+                
+                languages   = options[:languages]
+                languages   = video.languages if languages.nil?
+                
+          
+                  filename  = video.filename
+                  source    = video.source
+          video.export_type = self.to_s.split("::").last
+          destination = options[:destination]
+          
           destination = video.dir_output if destination.nil?
           
-          Notifier::Status("[Encode] M3U8 - Start", "#{video.filename}")  
+
                
             FileUtils.rm_rf(destination)
             FileUtils.mkdir_p(destination)
+            Notifier::Status("[Encode] M3U8 - Start", "#{video.filename}")  
 
            languages.each do |language|
              
