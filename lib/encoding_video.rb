@@ -64,7 +64,7 @@ class EncodingVideo < Video
     end
   end
   
-  def path_smil(bitrate, langauge)
+  def path_smil(bitrate, language = nil)
     case self.format
     when 3 then
       "#{self.path(language)}/#{self.basename}_#{language}_#{bitrate}kbps.mp4"[1..-1]
