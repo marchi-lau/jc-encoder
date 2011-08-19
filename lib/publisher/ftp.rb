@@ -23,9 +23,11 @@ module Publisher
            entries.each do |file|
              if File.directory?(file)
                destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ').chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
+               puts "Has Directory"
                break
              else
                destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
+               puts "No Directory"
              end
            end
              
