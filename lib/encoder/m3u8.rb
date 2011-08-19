@@ -38,6 +38,7 @@ module Encoder
                 
               FileUtils.mkdir_p(dir_output) 
               file_output = video.file_output(bitrate, "mp4", language).gsub("M3U8", "MP4")
+              file_m3u8   = video.file_m3u8(language)
               http_url    = "http://" + http_domain + "/mobile" + video.path(language)
           
               system "mediafilesegmenter '#{file_output}' -f '#{dir_output}' -t 10 -b  '#{http_url}' -B '#{filename}' -i '#{file_m3u8}"
