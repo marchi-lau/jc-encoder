@@ -4,11 +4,12 @@
     source    = args.source
     
     Rake::Task[:akamai].invoke(source)
-    Rake::Task[:atnext].invoke(source) if source.include?("replay-full") or source.include?("brts")
-    Rake::Task[:legacy].invoke(source) if source.include?("replay-full")
+    Rake::Task[:appledaily].invoke(source)
+    Rake::Task[:legacy].invoke(source)
     Rake::Task[:archive].invoke(source)
     
     time_elapsed = distance_of_time_in_words(Time.now, time_start)
+    
     Notifier::Status("[All Tasks] Complete. 
                       Time Elapsed: #{time_elapsed}", "#{source}")     
     

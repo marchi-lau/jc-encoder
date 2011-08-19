@@ -40,5 +40,11 @@ end
 
 task :appledaily, [:source] => :environment do |t,args|
   source = args.source
+  unless source.include?("replay-full") or source.include?("brts")
   Rake::Task["appledaily:publish"].invoke(source)
+  Notifier::Status("[AppleDaily] Bypass. 
+                    #{source})     
+  
+else
+  
 end

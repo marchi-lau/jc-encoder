@@ -41,5 +41,5 @@ end
 
 task :legacy, [:source] => :environment do |t,args|
   source = args.source
-  Rake::Task["legacy:publish"].invoke(source)
+  Rake::Task["legacy:publish"].invoke(source) if source.include?("replay-full")
 end
