@@ -20,17 +20,26 @@ module Publisher
            entries.delete(".")
            entries.delete("..")
            
-           entries.each do |file|
-             if File.directory?(file)
-               destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ').chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
-               puts "Has Directory"
-               break
-             else
-               destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
-               puts "No Directory"
-             end
+           # entries.each do |file|
+           #   if File.directory?(file)
+           #     destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ').chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
+           #     puts "Has Directory"
+           #     break
+           #   else
+           #     destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
+           #     puts "No Directory"
+           #   end
+           # end
+           
+           if destination.split("/").last == "chi" or  destination.split("/").last == "eng" or  destination.split("/").last == "pth"
+             destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ').chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
+           else
+             destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
            end
-             
+            
+            puts destination
+            
+           
            system  "/usr/local/bin/ncftpput -v -R -u #{ftp_username} -p #{ftp_password} #{ftp_domain} #{destination} '#{source}'"
            Notifier::Status("[FTP] #{ftp_domain} - Done", "#{source}")     
            
