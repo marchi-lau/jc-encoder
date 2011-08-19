@@ -45,9 +45,9 @@ namespace :akamai do
     # Encode
     # Encoder::MP4(VIDEO, destination, [bitrates])
     #===================================================================
-    # local_hdflash_dir   = Encoder::MP4(:video => video, 
-    #                                    :bitrates => hdflash_bitrates, 
-    #                                    :hdflash_domain => hdflash_domain)  
+    local_hdflash_dir   = Encoder::MP4(:video => video, 
+                                       :bitrates => hdflash_bitrates, 
+                                       :hdflash_domain => hdflash_domain)  
                                        
     local_mobile_dir    = Encoder::M3U8(:video => video, 
                                         :bitrates => m3u8_bitrates, 
