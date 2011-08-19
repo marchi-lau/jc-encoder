@@ -59,7 +59,7 @@
     # Encoder::MP4(VIDEO, [bitrates], destination)
     #===================================================================
     if (File.new(source).size / 1024**3) > 1                              
-      local_archive_dir = Encoder::MP4(video, archive_bitrates)  
+      local_archive_dir = Encoder::MP4(:video => video, :bitrates => archive_bitrates)  
       FileUtils.rm(source)
     else
       video.export_type = ""
