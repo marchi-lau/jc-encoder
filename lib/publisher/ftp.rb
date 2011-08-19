@@ -16,7 +16,10 @@ module Publisher
            system "curl --connect-timeout 20 --retry 20 -T '#{upload_txt}' --ftp-create-dirs -u #{ftp_username}:#{ftp_password} ftp://#{ftp_domain}#{destination}/upload.txt"
            
            # Upload Folder
-           entries = Dir.entries(source).delete(".").delete("..")
+           entries = Dir.entries(source)
+           entries.delete(".")
+           entries.delete("..")
+           
            entries.each do |file|
              if File.directory?(file)
                destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ').chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
