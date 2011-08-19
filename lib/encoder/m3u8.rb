@@ -23,6 +23,7 @@ module Encoder
                   source    = video.source
           video.export_type = self.to_s.split("::").last
           destination = options[:destination]
+          
           destination = video.dir_output if destination.nil?
           
 
@@ -32,12 +33,14 @@ module Encoder
             Notifier::Status("[Encode] M3U8 - Start", "#{video.filename}")  
 
            languages.each do |language|
-              
+             
+              dir_output = video.dir_output(language)
+                
               FileUtils.mkdir_p(dir_output) 
               file_output = video.file_output(bitrate, "mp4", language).gsub("M3U8", "MP4")
               http_url    = "http://" + http_domain + "/mobile" + video.path(language)
           
-              system "mediafilesegmenter '#{file_output}' -f '#{dir_output}' -t 10 -b  '#{http_url}' -B '#{filename}' -i '#{file_m3u8}'"
+              system "mediafilesegmenter '#{file_output}' -f '#{dir_output}' -t 10 -b  '#{http_url}' -B '#{filename}' -i '#{file_m3u8}"
               Notifier::Status("[Encode] M3U8 - Ready", "#{filename}")     
             end
             return destination
