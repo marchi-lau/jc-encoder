@@ -75,4 +75,9 @@ class EncodingVideo < Video
     
   end
   
+  # Override Filename from Source
+  def filename
+     File.basename(self.source,  File.extname(self.source))
+  end
+  
 end
