@@ -39,16 +39,15 @@ namespace :akamai do
     
     netstorage_hdflash_dir     = File.join("/#{cp_code}/hdflash", video.path)
     netstorage_mobile_dir      = File.join("/#{cp_code}/mobile", video.path)
-    netstorage_mobileweb_dir      = File.join("/#{cp_code}/mobileweb", video.path)
+    netstorage_mobileweb_dir   = File.join("/#{cp_code}/3gp", video.path)
     
     #===================================================================  
     # Encode
     # Encoder::MP4(VIDEO, destination, [bitrates])
     #===================================================================
-    #                                
-    local_hdflash_dir   = Encoder::MP4(:video => video, 
-                                       :bitrates => hdflash_bitrates, 
-                                       :hdflash_domain => hdflash_domain)  
+    # local_hdflash_dir   = Encoder::MP4(:video => video, 
+    #                                    :bitrates => hdflash_bitrates, 
+    #                                    :hdflash_domain => hdflash_domain)  
                                        
     local_mobile_dir    = Encoder::M3U8(:video => video, 
                                         :bitrates => m3u8_bitrates, 

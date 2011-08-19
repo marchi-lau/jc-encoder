@@ -57,11 +57,12 @@ class EncodingVideo < Video
   end
   
   def file_m3u8(language = nil)
+ 
     case self.format
     when 3 then
-      self.prefix(language) + "_#{language}.m3u8"
+      self.basename + "_#{language}.m3u8"
     else
-      self.prefix(language) + ".m3u8"
+      self.basename + ".m3u8"
     end
   end
   
@@ -72,7 +73,6 @@ class EncodingVideo < Video
     else
       "#{self.path}/#{self.basename}_#{bitrate}kbps.mp4"[1..-1]
     end
-    
   end
   
   # Override Filename from Source
