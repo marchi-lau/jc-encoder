@@ -30,8 +30,8 @@ module Publisher
            #     puts "No Directory"
            #   end
            # end
-           
-           if destination.split("/").last == "chi" or  destination.split("/").last == "eng" or  destination.split("/").last == "pth"
+           language = destination.split("/").last
+           if language.include?("chi") or  language.include?("eng") or language.include?("pth")
              destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ').chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
            else
              destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
