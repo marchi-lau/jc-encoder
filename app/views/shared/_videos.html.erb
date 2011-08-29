@@ -24,7 +24,7 @@
 					<tr> 
 						<td><input type="checkbox" name="check" /></td>
 						<td><%= link_to video.category.capitalize, :controller => "videos", :action => "category", :category => video.category %></td>
-					    <td><%= video.filename %></td>
+					    <td><%= link_to video.filename, video %></td>
 						<td>2,332</td>
 					    <td><%= convert_seconds_to_time(video.duration)  %></td>
 						
