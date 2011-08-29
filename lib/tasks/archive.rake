@@ -12,6 +12,26 @@ task :archive, [:source] => :environment do |t, args|
   Notifier::Status("Start Archving", "#{video.filename}")     
   
   #===================================================================
+  # Save Video to Database
+  #===================================================================
+  filename = File.basename(source,  File.extname(source))
+  handbraking = HandBrake::CLI.new(:bin_path => "#{Rails.root.to_s}/bin/HandBrakeCLI", :trace => true).input("#{source}")
+    titles = handbraking.scan
+  duration = titles[1].seconds            # => "01:21:18"
+  
+  time_elapsed = distance_of_time_in_words(Time.now, time_start)
+  if video.languages.size > 1
+    video.languages.each do |language|
+      Video.create(:source => source, :filename => "#{video.basename}_#{language}", :duration => duration)
+    end
+  else
+      Video.create(:source => source, :filename => filename, :duration => duration)
+  end
+  
+  Notifier::Status("Archive Complete. 
+                    Time Elapsed: #{time_elapsed}", "#{video.filename}")
+                    
+  #===================================================================
   # Video Quality
   #===================================================================
 
@@ -36,23 +56,5 @@ task :archive, [:source] => :environment do |t, args|
 
  # FileUtils.rm(source)
   
-  #===================================================================
-  # Save Video to Database
-  #===================================================================
-  filename = File.basename(source,  File.extname(source))
-  handbraking = HandBrake::CLI.new(:bin_path => "#{Rails.root.to_s}/bin/HandBrakeCLI", :trace => true).input("#{source}")
-    titles = handbraking.scan
-  duration = titles[1].seconds            # => "01:21:18"
-  
-  time_elapsed = distance_of_time_in_words(Time.now, time_start)
-  if video.languages.size > 1
-    video.languages.each do |language|
-      Video.create(:source => source, :filename => "#{video.basename}_#{language}", :duration => duration)
-    end
-  else
-    Video.create(:source => source, :filename => filename, :duration => duration)
-  end
-  
-  Notifier::Status("Archive Complete. 
-                    Time Elapsed: #{time_elapsed}", "#{video.filename}")
+
 end

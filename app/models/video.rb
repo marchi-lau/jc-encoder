@@ -2,7 +2,7 @@ class Video < ActiveRecord::Base
   
   attr_accessor :source
   
-  state_machine :state, :initial => :offline do
+  state_machine :state, :initial => :online do
     event :publish do
       transition any => :online
     end
