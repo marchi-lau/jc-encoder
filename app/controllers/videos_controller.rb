@@ -1,4 +1,6 @@
 class VideosController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /videos
   # GET /videos.xml
   def index
@@ -9,12 +11,22 @@ class VideosController < ApplicationController
       format.xml  { render :xml => @videos }
     end
   end
-
+  
+  def category
+    @category = params[:category]
+    if @category == "All"
+      @videos = Video.all
+    else
+      @videos = Video.where(:filename.matches => "%#{@category}%")
+    end
+    render :template => 'videos/index'
+    
+  end
   # GET /videos/1
   # GET /videos/1.xml
   def show
     @video = Video.find(params[:id])
-
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @video }

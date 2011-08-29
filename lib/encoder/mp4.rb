@@ -22,15 +22,13 @@ module Encoder
           bitrate_audio     = 64
           
           destination       = video.dir_output
-          FileUtils.rm_rf(destination) if !video.destination.nil?
+          FileUtils.rm_rf(destination) if video.destination.nil?
           FileUtils.mkdir_p(destination)            
           
           @languages.each do |language|
             FileUtils.mkdir_p(video.dir_output(language))
           end
-
-
-          
+       
           #===================================================================
           # Encode Audio
           #===================================================================

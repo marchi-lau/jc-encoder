@@ -1,14 +1,139 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
-  <title>JcEncoder</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" /> 
+	<title>JC Encoder | The Hong Kong Jockey Club</title>
+	
+		<%= stylesheet_link_tag "style" %>
+		<%= stylesheet_link_tag "style_text" %>
+		<%= stylesheet_link_tag "form-buttons" %>
+		<%= stylesheet_link_tag "link-buttons" %>
+		<%= stylesheet_link_tag "menu" %>
+		<%= stylesheet_link_tag "statics" %>
+		<%= stylesheet_link_tag "messages" %>
+		<%= stylesheet_link_tag "table-sorter" %>
+		<%= stylesheet_link_tag "tabs" %>
+		<%= stylesheet_link_tag "forms" %>
+		<%= stylesheet_link_tag "datepicker" %>
+		<%= stylesheet_link_tag "jquery.fancybox-1.3.4" %>
+		<%= stylesheet_link_tag "accordions" %>
+		<%= stylesheet_link_tag "jquery.treeview" %>
+		<%= javascript_include_tag :defaults %>
+
+	<!--[if lte IE 8]>
+		<%= javascript_include_tag "excanvas.min" %>
+	<![endif]-->
+	
 </head>
+
 <body>
 
-<%= yield %>
+<div class="container">   
+  
+	<div class="logo-labels">
+		<h1><%= link_to "Dashboard",:controller => "dashboard" %></h1>
+		<ul>
+			<li><a href="#"><span>Settings</span></a></li>
+			<li class="usermessage"><a href="#"><span>UserGuide</span></a></li>
+			<li class="logout">
+			<%= link_to content_tag(:span, "Sign out"), destroy_user_session_path, :method => 'delete' %>
+		  
+			</li>
+		</ul>
+	</div>
+	
+	<div class="menu-search">
+		<ul> 
+			<li class="current"><%= link_to "Dashboard",:controller => "dashboard" %></li> 
+			<li><%= link_to "All", :controller => "videos", :action => "category", :category => "All"%></li>
+			
+			<li> 
+				<%= link_to "Race Replay", :controller => "videos", :action => "category", :category => "replay"%>
+				<ul> 
+					<li><a href="#">2011-2012</a></li>
+					<li><a href="#">2010-2011</a></li>
+					<li><a href="#">2009-2011</a></li>
+					<li class="current">
+						<a href="#">Legacy</a>
+						<ul> 
+							<li><a href="#">Subsubmenu item 001</a></li>
+							<li><a href="#">Subsubmenu item 002</a></li>
+							<li class="current"><a href="#">Subsubmenu item 003</a></li>
+							<li><a href="#">Subsubmenu item 003</a></li>
+							<li><a href="#">Subsubmenu item 005</a></li>
+						</ul> 
+					</li> 
+				</ul> 
+			</li> 
+			<li><%= link_to "Barrier Trials", :controller => "videos", :action => "category", :category => "brts"%>
+			
+				<ul> 
+					<li><a href="#">2011-2012</a></li>
+					<li><a href="#">2010-2011</a></li>
+					<li><a href="#">2009-2011</a></li>
+					<li class="current">
+						<a href="#">Legacy</a>
+						<ul> 
+							<li><a href="#">Subsubmenu item 001</a></li>
+							<li><a href="#">Subsubmenu item 002</a></li>
+							<li class="current"><a href="#">Subsubmenu item 003</a></li>
+							<li><a href="#">Subsubmenu item 003</a></li>
+							<li><a href="#">Subsubmenu item 005</a></li>
+						</ul> 
+					</li>
+				</ul>
+					</li>
+			<li><%= link_to "Postrace", :controller => "videos", :action => "category", :category => "postrace"%></li>
+			<li><%= link_to "Prerace", :controller => "videos", :action => "category", :category => "prerace"%></li>
+			<li><%= link_to "Trackwork", :controller => "videos", :action => "category", :category => "trackwork"%></li>
+			<li><%= link_to "Promotion", :controller => "videos", :action => "category", :category => "special"%></li>
+		</ul>
+		<div class="search">
+			<form action="" method="post">
+				<input type="text" value="Seachterm" />
+				<button type="submit"></button>
+			</form> 
+		</div>
+	</div>
+	
+	<div class="breadcrumbs">
+		<ul>
+			<li class="home"><a href="#"></a></li>
+			<li class="break">&#187;</li>
+			<li><a href="#">Menu item</a></li>
+			<li class="break">&#187;</li>
+			<li><a href="#">Menu item</a></li>
+		</ul>
+	</div>
+	
+	<%= yield %>
+	
+	<div class="footer">
+		<div class="split">&#169; Copyright <a href="http://www.hkjc.com#jc-encoder">The Hong Kong Jockey Club</a></div> 
+		<div class="split right">Built by <a href="http://itai-tfs:12345/WMS" target="_blank">Web Marketing &amp; Services</a></div> 
+	</div>
+</div>
+
+<%= javascript_include_tag "superfish" %>
+<%= javascript_include_tag "supersubs" %>
+<%= javascript_include_tag "hoverIntent" %>
+<%= javascript_include_tag "jquery.flot" %>
+<%= javascript_include_tag "jquery.graphtable-0.2" %>
+<%= javascript_include_tag "jquery-ui" %> 
+<%= javascript_include_tag "customInput.jquery" %>
+<%= javascript_include_tag "jquery.tablesorter" %>
+<%= javascript_include_tag "jquery.tablesorter.pager" %>
+<%= javascript_include_tag "jquery.sparkbox-select" %>
+<%= javascript_include_tag "jquery.fancybox-1.3.4" %>
+<%= javascript_include_tag "jquery.filestyle.mini" %>
+<%= javascript_include_tag "date" %>
+<%= javascript_include_tag "jquery.datepicker" %>
+<%= javascript_include_tag "jquery.treeview" %>
+<%= javascript_include_tag "jquery.tipsy" %>
+<%= javascript_include_tag "inline" %>
 
 </body>
-</html>
+
+</html> 
+<!-- Localized -->

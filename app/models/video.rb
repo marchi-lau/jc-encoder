@@ -1,16 +1,26 @@
-class Video < ActiveRecord::Base
+class Video < ActiveRecord::Base  
+  
   attr_accessor :source
+  
+  state_machine :state, :initial => :offline do
+    event :publish do
+      transition any => :online
+    end
+    event :unpublish do
+      transition any => :offline
+    end
+  end
   
   # ================================================================================================
   # Video URL
   # ================================================================================================
 
   def smil
-    File.join("http://iphone.hkjc.edgesuite.net","/hdflash", "#{self.path}/#{self.filename}.smil")
+    File.join("http://streaming.hkjc.edgesuite.net","/hdflash", "#{self.path}/#{self.filename}.smil")
   end
   
   def m3u8
-    File.join("http://iphone.hkjc.edgesuite.net", "#{self.path}/#{self.filename}.m3u8")
+    File.join("http://streaming.hkjc.edgesuite.net", "#{self.path}/#{self.filename}.m3u8")
   end
   
   def url
@@ -21,6 +31,9 @@ class Video < ActiveRecord::Base
     "http://racing.hkjc.com/racing/video/play.asp?type=#{self.category}&date=#{self.title}&no=#{self.episode}&lang=#{self.language}"
   end
   
+  def upload_txt
+    File.join("http://streaming.hkjc.edgesuite.net", "/hdflash",  "#{self.path}/upload.txt")
+  end
   # ================================================================================================
   # Video Name Attributes
   # ================================================================================================

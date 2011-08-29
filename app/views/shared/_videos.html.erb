@@ -1,0 +1,50 @@
+<div class="section">
+	<div class="box">
+		<div class="title">
+			<h2><%= @category %></h2>
+			<span class="Hide"></span>
+		</div>
+		<div class="content">
+			<table cellspacing="0" cellpadding="0" border="0" class="sorting"> 
+				<thead> 
+					<tr> 
+						<th><input type="checkbox" name="check" class="checkall" /></th>
+						<th>Category</th>
+						<th>Filename</th>
+						
+						<th width="100px">Total Views</th>
+						<th>Duration</th>
+						<th width="200px">Date</th>
+						<th>File Size</th>
+						<th>State</th>
+					</tr> 
+				</thead> 
+				<tbody> 
+					<% @videos.each do |video| %>
+					<tr> 
+						<td><input type="checkbox" name="check" /></td>
+						<td><%= link_to video.category.capitalize, :controller => "videos", :action => "category", :category => video.category %></td>
+					    <td><%= video.filename %></td>
+						<td>2,332</td>
+					    <td><%= convert_seconds_to_time(video.duration)  %></td>
+						
+						<td><%= video.created_at %></td>
+						<td>10MB</td>
+						<td>
+							<% if video.online? %>
+							<%= link_to "Online ", "#", :class => "button green" %>
+							<% else %>
+							<%= link_to "Offline", "#", :class => "button red" %>
+							<% end %>
+						</td>
+					</tr>
+					<% end %>
+					
+				</tbody> 
+			</table>
+			<button type="submit" class="red"><span>Delete</span></button>
+		</div>
+	</div>
+</div>
+
+

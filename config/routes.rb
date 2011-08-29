@@ -1,10 +1,14 @@
 JcEncoder::Application.routes.draw do
+  devise_for :users
+
   resources :videos
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
   # Sample of regular route:
+    match 'dashboard' => 'dashboard#index'
+    match 'category/:category' => 'videos#category'
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
@@ -50,7 +54,7 @@ JcEncoder::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => "dashboard#index"
 
   # See how all your routes lay out with "rake routes"
 

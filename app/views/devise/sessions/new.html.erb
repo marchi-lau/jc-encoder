@@ -1,0 +1,71 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" /> 
+	<title>JC Encoder | The Hong Kong Jockey Club</title>
+	<style type="text/css">
+		@import url("../stylesheets/login.css");
+		@import url('../stylesheets/style_text.css');
+		@import url('../stylesheets/form-buttons.css');
+		@import url('../stylesheets/link-buttons.css');
+		@import url('../stylesheets/messages.css');
+		@import url('../stylesheets/forms.css');
+	</style>
+	
+	<%= javascript_include_tag 'jquery-1.6.2.min' %>
+	
+	
+	<!--[if lte IE 8]>
+		<script type="text/javascript" src="javascripts/excanvas.min.js"></script>
+	<![endif]-->
+	
+</head>
+
+<body>
+
+<div class="wrapper">
+		
+	<div class="box">
+		<div class="container">
+			<h1><a href="#">JC Encoder</a></h1>
+			<h2>Login:</h2>
+
+			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+			  <%= f.email_field :email, :class => 'small',:value => 'USERNAME@hkjc.org.hk' %>
+
+			  <%= f.password_field :password, :class => 'small', :value => 'PASSWORD' %>
+				<button type="submit" class="blue medium"><span>Login</span></button>
+				<button type="reset" class="red medium"><span>Reset</span></button>
+				
+			<% end %>
+
+			<div class="bottom">
+				<div class="messages blue">
+					<span></span>
+					<% if flash.blank? %>
+
+					<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+					  <%= link_to "Don't have an account? Please sign up.", new_registration_path(resource_name),:style => "color:white;" %><br />
+					<% end -%>
+
+					<% else %>
+					<% flash.each do |name, msg| %> 
+					    <%= content_tag :section, msg, :id => "flash_#{name}", :class => "flash"%> 
+					<% end %> 
+					<% end%>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<%= javascript_include_tag :all %>
+
+</body>
+
+</html> 
+<!-- Localized -->
