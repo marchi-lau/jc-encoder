@@ -24,7 +24,7 @@ set :deploy_to, "/Library/WebServer/Documents/#{application}/"
 # ——————————– Server Definitions ——————————–
 # Define the hostname of your server. If you have multiple servers for multiple purposes, we can define those below as well.
 # We're assuming you're using a single server for your site, but if you have a seperate asset server or database server, you can specify that here.
-role :app, "192.168.100.194","192.168.100.195"
+role :app, "192.168.100.194","192.168.100.195", "192.168.100.200"
 role :db, "192.168.100.194", :primary => true
 
 #role :db,  "your slave db-server here"
@@ -42,19 +42,19 @@ namespace :ssh do
 end
 
 namespace :deploy do
-  task :start do
-    run "cd #{deploy_to}current && rails s -e production -d"
-  end
-  
-  task :stop do
-    run "killall -9 ruby"
-  end
-
-  task :restart do
-    run "cd #{deploy_to}current && rails s -e production -d"
-    run "killall -9 ruby"
-    run "cd #{deploy_to}current && rails s -e production -d"
-  end
+  # task :start do
+  #   run "cd #{deploy_to}current && rails s -e production -d"
+  # end
+  # 
+  # task :stop do
+  #   run "killall -9 ruby"
+  # end
+  # 
+  # task :restart do
+  #   run "cd #{deploy_to}current && rails s -e production -d"
+  #   run "killall -9 ruby"
+  #   run "cd #{deploy_to}current && rails s -e production -d"
+  # end
 end
 
 # if you're still using the script/reaper helper you will need

@@ -19,6 +19,7 @@ class VideosController < ApplicationController
     else
       @videos = Video.where(:filename.matches => "%#{@category}%")
     end
+    
     render :template => 'videos/index'
     
   end
