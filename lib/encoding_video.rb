@@ -12,9 +12,9 @@ class EncodingVideo < Video
       
     elsif !language.nil? && self.destination.nil?
         if self.format == 3 && self.languages.size > 1
-         ENV_CONFIG['video_library'] + "/"  + self.service  + "/" + self.export_type + self.path.chomp("/").slice(/.+\//).chomp("/") + "/" + language # To be moved to YAML
+         ENV_CONFIG['video_library'] + "/"  + self.service  + "/" + self.export_type.to_s + self.path.chomp("/").slice(/.+\//).chomp("/") + "/" + language # To be moved to YAML
         else
-         ENV_CONFIG['video_library'] + "/" + self.service  + "/" + self.export_type + self.path.chomp("/")
+         ENV_CONFIG['video_library'] + "/" + self.service  + "/" + self.export_type.to_s + self.path.chomp("/")
         end
     
     elsif language.nil? && !self.destination.nil?
