@@ -108,7 +108,6 @@ module Encoder
                 output    = video.file_output(bitrate, "mp4", language)
                 
                # Ensure old version is removed
-               FileUtils.rm(destination, :force => true ) 
                FileUtils.rm(output, :force => true )   
               
               system "/usr/local/bin/mp4box -add '#{audio_track}' '#{video_track}' -out '#{output}'"
