@@ -56,8 +56,8 @@ module Encoder
               system "/usr/local/bin/ffmpeg -y -i '#{audio_wav}' '#{audio_aac}' -ac 2 -ab #{bitrate_audio}"
               
               
-              FileUtils.rm_rf(audio_wav, :force => true )
-              FileUtils.rm_rf(audio_raw, :force => true )
+              FileUtils.rm(audio_wav, :force => true )
+              FileUtils.rm(audio_raw, :force => true )
               
             end # each_with_index
             
@@ -74,7 +74,7 @@ module Encoder
               # Encoded Audio Track into AAC
               system "/usr/local/bin/ffmpeg -y -i '#{audio_raw}' '#{audio_aac}' -ac 2 -ab #{bitrate_audio}"
               
-              FileUtils.rm_rf(audio_raw, :force => true )
+              FileUtils.rm(audio_raw, :force => true )
                         
           end #IF languages.size > 1
           
@@ -85,7 +85,7 @@ module Encoder
           
             bitrates.each do |bitrate|
               video_mp4 = video.video_track(bitrate, "mp4")
-              FileUtils.rm_rf (video_mp4) # Ensure old version is removed
+              FileUtils.rm (video_mp4) # Ensure old version is removed
               
               bitrate_video = bitrate - bitrate_audio
               Notifier::Status("[Encode] MP4 - #{bitrate_video}kbps - Start", "#{filename}")              
@@ -108,8 +108,8 @@ module Encoder
                 output    = video.file_output(bitrate, "mp4", language)
                 
                # Ensure old version is removed
-               FileUtils.rm_rf(destination, :force => true ) 
-               FileUtils.rm_rf(output, :force => true )   
+               FileUtils.rm(destination, :force => true ) 
+               FileUtils.rm(output, :force => true )   
               
               system "/usr/local/bin/mp4box -add '#{audio_track}' '#{video_track}' -out '#{output}'"
               
@@ -119,15 +119,15 @@ module Encoder
           
           bitrates.each do |bitrate|
             video_track = video.video_track(bitrate, "mp4")
-            FileUtils.rm_rf(video_track, :force => true )
+            FileUtils.rm(video_track, :force => true )
           end
           
           @languages.each do |language|
             audio_track = video.audio_track("aac", language)
-            FileUtils.rm_rf(audio_track, :force => true )
+            FileUtils.rm(audio_track, :force => true )
           end
           
-          FileUtils.rm_rf(video.dir_output) if destination != video.dir_output
+          FileUtils.rm(video.dir_output) if destination != video.dir_output
           
           #===================================================================
           # Generate SMIL
@@ -161,7 +161,7 @@ module Encoder
                        end
             
               # Ensure old version is removed
-              FileUtils.rm_rf(file_smil, :force => true )
+              FileUtils.rm(file_smil, :force => true )
               File.open(file_smil, 'w') {|f| f.write(smil.to_xml) }
           end  
           end
