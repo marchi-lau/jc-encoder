@@ -85,7 +85,7 @@ module Encoder
           
             bitrates.each do |bitrate|
               video_mp4 = video.video_track(bitrate, "mp4")
-              FileUtils.rm (video_mp4, :force => true) # Ensure old version is removed
+              FileUtils.rm(video_mp4, :force => true) # Ensure old version is removed
               
               bitrate_video = bitrate - bitrate_audio
               Notifier::Status("[Encode] MP4 - #{bitrate_video}kbps - Start", "#{filename}")              
