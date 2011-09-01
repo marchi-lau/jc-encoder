@@ -45,7 +45,6 @@ task :archive, [:source] => :environment do |t, args|
     local_archive_dir = Encoder::MP4(:video => video, :bitrates => archive_bitrates)  
     FileUtils.rm(source)
   else
-    video.export_type = ""
     FileUtils.mkdir_p(video.dir_output)
     FileUtils.mv(source, video.dir_output)
   end

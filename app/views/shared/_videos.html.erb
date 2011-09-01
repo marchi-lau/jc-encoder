@@ -5,7 +5,7 @@
 			<span class="Hide"></span>
 		</div>
 		<div class="content">
-			<table cellspacing="0" cellpadding="0" border="0" class="sorting"> 
+			<table cellspacing="0" cellpadding="0" border="0" class="table-all"> 
 				<thead> 
 					<tr> 
 						<th><input type="checkbox" name="check" class="checkall" /></th>
@@ -42,6 +42,24 @@
 					
 				</tbody> 
 			</table>
+			<div id="pager" class="pager">
+				<form action="">
+					<button type="submit" class="red"><span>Delete</span></button>
+					<div>
+						<img src="gfx/table-first.gif" class="first" alt="First" />
+						<img src="gfx/table-prev.gif" class="prev" alt="Previous" />
+						<input type="text" class="pagedisplay"/>
+						<img src="gfx/table-next.gif" class="next" alt="Next" />
+						<img src="gfx/table-last.gif" class="last" alt="Last" />
+					</div>
+					<select class="pagesize">
+						<option selected="selected" value="5">5</option>
+						<option value="10">10</option>
+						<option value="25">25</option>
+						<option value="50">50</option>
+					</select>
+				</form>
+			</div>
 			<button type="submit" class="red"><span>Delete</span></button>
 		</div>
 	</div>

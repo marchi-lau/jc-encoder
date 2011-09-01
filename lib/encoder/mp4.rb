@@ -11,7 +11,7 @@ module Encoder
                       video = options[:video]
                    bitrates = options[:bitrates]
              hdflash_domain = options[:hdflash_domain]
-          video.export_type = self.to_s.split("::").last
+          video.export_type = self.to_s.split("::").last.to_s
           if options[:languages].nil?
             @languages        = video.languages
           else
@@ -22,7 +22,7 @@ module Encoder
           bitrate_audio     = 64
           
           destination       = video.dir_output
-          # FileUtils.rm_rf(destination) if video.destination.nil?
+          
           FileUtils.mkdir_p(destination)            
           
           @languages.each do |language|
@@ -33,12 +33,17 @@ module Encoder
           # Encode Audio
           #===================================================================
           # Extra Original Audio Track
-          
-          if @languages.size > 1
+      
+          if @languages.size > 1 or  video.category == "replay-short" or video.category == "replay-full" or video.category == "brts" or video.category == "trackwork" # Force Mono Hack
             @languages.each_with_index do |language, index|
               audio_raw = video.audio_track("wav")
               audio_wav = video.audio_track("wav", language)
               audio_aac = video.audio_track("aac", language)
+              
+              #Ensure Old Files are removed
+              FileUtils.rm(audio_raw)
+              FileUtils.rm(audio_wav)
+              FileUtils.rm(audio_aac)
               
               Notifier::Status("[Encode] AAC - #{language} - #{bitrate_audio}kbps - Start", "#{filename}")
 
@@ -80,6 +85,8 @@ module Encoder
           
             bitrates.each do |bitrate|
               video_mp4 = video.video_track(bitrate, "mp4")
+              FileUtils.rm_rf (video_mp4) # Ensure old version is removed
+              
               bitrate_video = bitrate - bitrate_audio
               Notifier::Status("[Encode] MP4 - #{bitrate_video}kbps - Start", "#{filename}")              
               
@@ -99,8 +106,13 @@ module Encoder
               audio_track = video.audio_track("aac", language)
               video_track = video.video_track(bitrate, "mp4")
                 output    = video.file_output(bitrate, "mp4", language)
-
+                
+               # Ensure old version is removed
+               FileUtils.rm_rf(destination) 
+               FileUtils.rm_rf(output)   
+              
               system "/usr/local/bin/mp4box -add '#{audio_track}' '#{video_track}' -out '#{output}'"
+              
               FileUtils.mv(output, destination) if destination != video.dir_output
             end            
           end
@@ -147,6 +159,9 @@ module Encoder
                      }
                    }                                                                                                                                                                                 
                        end
+            
+              # Ensure old version is removed
+              FileUtils.rm_rf(file_smil)
               File.open(file_smil, 'w') {|f| f.write(smil.to_xml) }
           end  
           end

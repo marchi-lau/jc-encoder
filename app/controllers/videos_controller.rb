@@ -4,7 +4,7 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.xml
   def index
-    @videos = Video.all
+    @videos = Video.find(:all, :order => 'created_at')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +17,7 @@ class VideosController < ApplicationController
     if @category == "All"
       @videos = Video.all
     else
-      @videos = Video.where(:filename.matches => "%#{@category}%")
+      @videos = Video.where(:filename.matches => "%#{@category}%").order(:created_at.desc)
     end
     
     render :template => 'videos/index'
