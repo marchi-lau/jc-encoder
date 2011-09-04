@@ -4,25 +4,40 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.xml
   def index
-    @videos = Video.find(:all, :order => 'created_at')
+    @videos = Video.page(params[:page]).order('created_at DESC')
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @videos }
-    end
   end
   
   def category
-    @category = params[:category]
-    if @category == "All"
-      @videos = Video.all
+    @title = @category = params[:category]
+    case @category.downcase
+    when "all" then
+      @title = "All Videos"
+      @videos = Video.page(params[:page]).order('created_at DESC')
+    when "online" then
+      @title = "Online Videos"
+      @videos = Video.where(:state => "online").order(:created_at.desc).paginate(:per_page => 25, :page => params[:page])
+    when "offline" then
+      @title = "Offline Videos"
+      @videos = Video.where(:state => "offline").order(:created_at.desc).paginate(:per_page => 25, :page => params[:page])
+    when "expired" then
+      @videos = Video.where(:state => "expire").order(:created_at.desc).paginate(:per_page => 25, :page => params[:page])
     else
-      @videos = Video.where(:filename.matches => "%#{@category}%").order(:created_at.desc)
+      @videos = Video.where(:filename.matches => "%#{@category}%").order(:created_at.desc).paginate(:per_page => 25, :page => params[:page])
     end
     
     render :template => 'videos/index'
     
   end
+  
+  def search
+    @videos = Video.where(:filename.matches => "%#{params[:q]}%").order(:created_at.desc).paginate(:per_page => 25, :page => params[:page])
+    @title  = "Search Results :: " + params[:q]
+    
+    render :template => 'videos/index'
+    
+  end
+  
   # GET /videos/1
   # GET /videos/1.xml
   def show
@@ -92,5 +107,18 @@ class VideosController < ApplicationController
       format.html { redirect_to(videos_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def unpublish
+        domain  = AKAMAI_CONFIG['netstorage_domain']
+        cp_code = 115935
+        ssh_key = AKAMAI_CONFIG['ssh_key']
+         @video = Video.find(params[:id])
+    netstorage_hdflash_dir     = File.join("/#{cp_code}/hdflash", @video.path)
+    
+    Publisher::SSH.rm_rf(ssh_key, domain, netstorage_hdflash_dir)
+    
+    @video.unpublish!
+    redirect_to :back 
   end
 end

@@ -4,7 +4,9 @@ class DashboardController < ApplicationController
   # GET /videos
   # GET /videos.xml
   def index
-    @videos = Video.all
+    @title = "Recent Videos"
+    
+    @videos = Video.paginate(:per_page => 25, :page => params[:page]).where(:created_at.gt => 2.weeks.ago)
 
     respond_to do |format|
       format.html # index.html.erb

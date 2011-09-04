@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" /> 
 	<title>JC Encoder | The Hong Kong Jockey Club</title>
-	
+		
 		<%= stylesheet_link_tag "style" %>
 		<%= stylesheet_link_tag "style_text" %>
 		<%= stylesheet_link_tag "form-buttons" %>
@@ -19,7 +19,11 @@
 		<%= stylesheet_link_tag "jquery.fancybox-1.3.4" %>
 		<%= stylesheet_link_tag "accordions" %>
 		<%= stylesheet_link_tag "jquery.treeview" %>
-		<%= javascript_include_tag :defaults %>
+		
+		<%= javascript_include_tag 'jquery' %>
+		<%= javascript_include_tag 'rails' %>
+		<%= javascript_include_tag 'pagination' %>
+		
 
 	<!--[if lte IE 8]>
 		<%= javascript_include_tag "excanvas.min" %>
@@ -45,8 +49,16 @@
 	
 	<div class="menu-search">
 		<ul> 
-			<li class="current"><%= link_to "Dashboard",:controller => "dashboard" %></li> 
-			<li><%= link_to "All", :controller => "videos", :action => "category", :category => "All"%></li>
+			<li>
+				<%= link_to "All Videos", :controller => "videos", :action => "category", :category => "All"%>
+				<ul>                 
+					<li><%= link_to "Videos - Online", :controller => "videos", :action => "category", :category => "Online"%></li>
+					<li><%= link_to "Videos - Offline", :controller => "videos", :action => "category", :category => "Offline"%></li>
+					<li><%= link_to "Videos - Expired", :controller => "videos", :action => "category", :category => "Expire"%></li>
+					<li><%= link_to "Videos - Error", :controller => "videos", :action => "category", :category => "Expire"%></li>
+					
+				</ul>
+				</li>
 			
 			<li> 
 				<%= link_to "Race Replay", :controller => "videos", :action => "category", :category => "replay"%>
@@ -57,11 +69,6 @@
 					<li class="current">
 						<a href="#">Legacy</a>
 						<ul> 
-							<li><a href="#">Subsubmenu item 001</a></li>
-							<li><a href="#">Subsubmenu item 002</a></li>
-							<li class="current"><a href="#">Subsubmenu item 003</a></li>
-							<li><a href="#">Subsubmenu item 003</a></li>
-							<li><a href="#">Subsubmenu item 005</a></li>
 						</ul> 
 					</li> 
 				</ul> 
@@ -90,20 +97,20 @@
 			<li><%= link_to "Promotion", :controller => "videos", :action => "category", :category => "special"%></li>
 		</ul>
 		<div class="search">
-			<form action="" method="post">
-				<input type="text" value="Seachterm" />
+			<form id="live-search-form" method="get" action="/videos/search">
+			  <input id="big-search-box" name="q" type="text" value="Search Keywords"/>
 				<button type="submit"></button>
-			</form> 
+			</form>
 		</div>
 	</div>
 	
 	<div class="breadcrumbs">
 		<ul>
-			<li class="home"><a href="#"></a></li>
+			<li class="home"><%= link_to "",:controller => "dashboard" %></li>
 			<li class="break">&#187;</li>
-			<li><a href="#">Menu item</a></li>
+			<li><%= params[:controller] %></li>
 			<li class="break">&#187;</li>
-			<li><a href="#">Menu item</a></li>
+			<li><%= @category%></li>
 		</ul>
 	</div>
 	
@@ -115,23 +122,13 @@
 	</div>
 </div>
 
-<%= javascript_include_tag "superfish" %>
-<%= javascript_include_tag "supersubs" %>
-<%= javascript_include_tag "hoverIntent" %>
-<%= javascript_include_tag "jquery.flot" %>
-<%= javascript_include_tag "jquery.graphtable-0.2" %>
-<%= javascript_include_tag "jquery-ui" %> 
-<%= javascript_include_tag "customInput.jquery" %>
-<%= javascript_include_tag "jquery.tablesorter" %>
-<%= javascript_include_tag "jquery.tablesorter.pager" %>
-<%= javascript_include_tag "jquery.sparkbox-select" %>
-<%= javascript_include_tag "jquery.fancybox-1.3.4" %>
-<%= javascript_include_tag "jquery.filestyle.mini" %>
-<%= javascript_include_tag "date" %>
-<%= javascript_include_tag "jquery.datepicker" %>
-<%= javascript_include_tag "jquery.treeview" %>
-<%= javascript_include_tag "jquery.tipsy" %>
-<%= javascript_include_tag "inline" %>
+			<%= javascript_include_tag "date" %>
+			<%= javascript_include_tag "jquery.datepicker" %>
+			<%= javascript_include_tag "jquery.treeview" %>
+			<%= javascript_include_tag "jquery.flot" %>
+			<%= javascript_include_tag "customInput.jquery" %>
+			<%= javascript_include_tag "jquery.sparkbox-select" %>
+			
 
 </body>
 

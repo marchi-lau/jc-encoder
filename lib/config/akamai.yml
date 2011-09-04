@@ -1,6 +1,6 @@
 hdflash_domain: "hkjc-f.akamaihd.net"
 http_domain:    "streaming.hkjc.edgesuite.net"
-ftp_domain:     "hkjc.upload.akamai.com"
+netstorage_domain:     "hkjc.upload.akamai.com"
 ftp_username:   "ftp-upload"
 ftp_password:   "hkjc1234"
-ssh_key:        ""
+ssh_key:        "ssh-keys/netstorage_key"

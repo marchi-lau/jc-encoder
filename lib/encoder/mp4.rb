@@ -48,7 +48,17 @@ module Encoder
               Notifier::Status("[Encode] AAC - #{language} - #{bitrate_audio}kbps - Start", "#{filename}")
 
               system "/usr/local/bin/mplayer '#{source}' -channels 4 -af format=s16le -ao pcm:fast:waveheader:file='#{audio_raw}' -vo null -vc null -novideo -quiet -nolirc"
-
+              
+              # Force Audio Channel Arrangement
+              case language
+              when "chi" then
+                index = 0
+              when "eng" then
+                index = 1
+              when "pth" then
+                index = 2
+              end
+              
               # Extract Audio Channels from Audio Track
               system "/usr/local/bin/sox '#{audio_raw}' '#{audio_wav}' remix #{index + 1}"
 

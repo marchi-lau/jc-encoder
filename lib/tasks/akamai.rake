@@ -21,7 +21,7 @@ namespace :akamai do
     service             = "Akamai"
     hdflash_domain      = AKAMAI_CONFIG['hdflash_domain']
     http_domain         = AKAMAI_CONFIG['http_domain']
-    ftp_domain          = AKAMAI_CONFIG['ftp_domain']
+    ftp_domain          = AKAMAI_CONFIG['netstorage_domain']
     ftp_username        = AKAMAI_CONFIG['ftp_username']
     ftp_password        = AKAMAI_CONFIG['ftp_password']
     
@@ -71,21 +71,26 @@ namespace :akamai do
   end
   
   task :housekeep do
-  time_start = Time.now
-     cp_code = 115935
-    Video.expired.each do |video|
-      netstorage_hdflash_dir     = File.join("/#{cp_code}/hdflash", video.path)
-      netstorage_mobile_dir      = File.join("/#{cp_code}/mobile", video.path)
-      netstorage_mobileweb_dir   = File.join("/#{cp_code}/mobileweb", video.path)
-      
-      system "ssh -i '#{ENV_CONFIG['ssh_key']}' sshacs@hkjc.upload.akamai.com rm -rf '#{netstorage_hdflash_dir}'"
-      system "ssh -i '#{ENV_CONFIG['ssh_key']}' sshacs@hkjc.upload.akamai.com rm -rf '#{netstorage_mobile_dir}'"
-      system "ssh -i '#{ENV_CONFIG['ssh_key']}' sshacs@hkjc.upload.akamai.com rm -rf '#{netstorage_mobileweb_dir}'"
-  
-    end
+    time_start = Time.now
+    #===================================================================
+    # Create Video Object
+    #===================================================================
+    source    = args.source
+    video     = EncodingVideo.new(:source    => source, 
+                                  :service   => "Akamai")
     
-  Notifier::Status("[Akamai] Housekeep Complete. 
-                    Time Elapsed: #{time_elapsed}", "#{expired_videos.count} Videos Offline.")     
+    Notifier::Status("[Akamai] Start Publishing", "#{video.filename}")
+    ftp_domain  = AKAMAI_CONFIG['netstorage_domain']
+        cp_code = 115935
+        ssh_key = AKAMAI_CONFIG['ssh_key']
+        
+    netstorage_hdflash_dir     = File.join("/#{cp_code}/hdflash", video.path)
+    netstorage_mobile_dir      = File.join("/#{cp_code}/mobile", video.path)
+    netstorage_mobile_dir      = File.join("/#{cp_code}/mobileweb", video.path)
+    Publisher::SSH.offline(ssh_key, ftp_domain, netstorage_hdflash_dir)
+    
+    Notifier::Status("[Akamai] Housekeep Complete. 
+                    Time Elapsed: #{time_elapsed}", "#{expired_videos.count} Videos Offline.")
     
   end
   

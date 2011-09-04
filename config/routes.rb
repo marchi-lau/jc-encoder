@@ -1,7 +1,9 @@
 JcEncoder::Application.routes.draw do
   devise_for :users
+  match 'videos/search' => 'videos#search'
+  match 'videos/unpublish/:id' => 'videos#unpublish'
 
-  resources :videos
+  resources :videos 
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

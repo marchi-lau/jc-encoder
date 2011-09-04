@@ -46,3 +46,8 @@ require 'net/http'
     end
     end
   end
+
+  task :remove, [:source] => :environment do |t,args|
+
+
+  end

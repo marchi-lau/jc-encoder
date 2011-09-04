@@ -57,7 +57,6 @@ class EncodingVideo < Video
   end
   
   def file_m3u8(language = nil)
- 
     case self.format
     when 3 then
       self.basename + "_#{language}.m3u8"
