@@ -1,4 +1,3 @@
-
 <div class="content">
 	<%= will_paginate(@videos) %>
 	
@@ -21,7 +20,7 @@
 			<tr> 
 				<td><input type="checkbox" name="check" /></td>
 				<td><%= link_to video.category.capitalize, :controller => "videos", :action => "category", :category => video.category %></td>
-			    <td><%= link_to video.filename, video %></td>
+			    <td><%= link_to truncate(video.filename, :length => 40), video %></td>
 				<td>---</td>
 			    <td><%= to_minutes(video.duration) %></td>
 				
@@ -42,7 +41,7 @@
 	
 	<button type="submit" class="red"><span>Delete</span></button>
 <%= will_paginate(@videos) %>
-<div id="pager" class="pager">
+<!-- <div id="pager" class="pager">
 					<div>
 						<img src="gfx/table-first.gif" class="first" alt="First" />
 						<img src="gfx/table-prev.gif" class="prev" alt="Previous" />
@@ -51,7 +50,7 @@
 						<img src="gfx/table-last.gif" class="last" alt="Last" />
 					</div>
 
-			</div>
+</div> -->
 			</div>
 			<%= javascript_include_tag "superfish" %>
 			<%= javascript_include_tag "supersubs" %>

@@ -41,22 +41,24 @@ namespace :ssh do
 
   end
 end
+# Solve Bundle
+# sudo ssh key to 600
 
-# namespace :deploy do
-#   # task :start do
-#   #   run "cd #{deploy_to}current && rails s -e production -d"
-#   # end
-#   # 
-#   # task :stop do
-#   #   run "killall -9 ruby"
-#   # end
-#   # 
-#   # task :restart do
-#   #   run "cd #{deploy_to}current && rails s -e production -d"
-#   #   run "killall -9 ruby"
-#   #   run "cd #{deploy_to}current && rails s -e production -d"
-#   # end
-# end
+namespace :deploy do
+  # task :start do
+  #   run "cd #{deploy_to}current && rails s -e production -d"
+  # end
+  # 
+  # task :stop do
+  #   run "killall -9 ruby"
+  # end
+  # 
+  # task :restart do
+  #   run "cd #{deploy_to}current && rails s -e production -d"
+  #   run "killall -9 ruby"
+  #   run "cd #{deploy_to}current && rails s -e production -d"
+  # end
+end
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts

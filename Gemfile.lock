@@ -31,6 +31,12 @@ GEM
     arel (2.0.10)
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
+    capistrano (2.8.0)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
     devise (1.4.2)
       bcrypt-ruby (~> 2.1.2)
       orm_adapter (~> 0.0.3)
@@ -40,10 +46,12 @@ GEM
       abstract (>= 1.0.0)
     handbrake (0.1.0)
       rubytree (~> 0.8.1)
+    highline (1.6.2)
     i18n (0.5.0)
     jquery-rails (1.0.13)
       railties (~> 3.0)
       thor (~> 0.14)
+    kgio (2.6.0)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
@@ -60,6 +68,13 @@ GEM
       arel (~> 2.0.7)
     mime-types (1.16)
     mysql2 (0.2.7)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-sftp (2.0.5)
+      net-ssh (>= 2.0.9)
+    net-ssh (2.2.1)
+    net-ssh-gateway (1.1.0)
+      net-ssh (>= 1.99.1)
     nokogiri (1.5.0)
     orm_adapter (0.0.5)
     polyglot (0.3.1)
@@ -82,6 +97,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.4)
+    raindrops (0.7.0)
     rake (0.8.7)
     rdoc (3.8)
     ruby-graphviz (1.0.0)
@@ -92,13 +108,19 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.29)
+    unicorn (4.1.1)
+      kgio (~> 2.4)
+      rack
+      raindrops (~> 0.6)
     warden (1.0.4)
       rack (>= 1.0)
+    will_paginate (3.0.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  capistrano
   devise
   dnssd
   handbrake
@@ -111,3 +133,5 @@ DEPENDENCIES
   ruby-graphviz
   ruby-growl
   state_machine
+  unicorn
+  will_paginate (~> 3.0)

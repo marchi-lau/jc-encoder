@@ -4,23 +4,18 @@ gem 'rails', '3.0.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'will_paginate', '~> 3.0'
 
 gem 'mysql2', '~> 0.2.6'
 gem 'state_machine'
 gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
 
-# Use unicorn as the web server
-# gem 'unicorn'
+gem 'unicorn'
 gem 'devise'
-# Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 gem 'jquery-rails'
 gem "meta_where"
 gem "meta_search"
-# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-# gem 'ruby-debug'
-# gem 'ruby-debug19', :require => 'ruby-debug'
-# Bundle the extra gems:
 # gem 'bj'
 gem 'handbrake'
 gem 'nokogiri'

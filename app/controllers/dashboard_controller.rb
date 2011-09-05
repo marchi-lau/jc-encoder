@@ -6,7 +6,7 @@ class DashboardController < ApplicationController
   def index
     @title = "Recent Videos"
     
-    @videos = Video.paginate(:per_page => 25, :page => params[:page]).where(:created_at.gt => 2.weeks.ago)
+    @videos = Video.paginate(:per_page => 25, :page => params[:page]).order(:created_at.desc)
 
     respond_to do |format|
       format.html # index.html.erb
