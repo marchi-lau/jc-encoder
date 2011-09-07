@@ -65,9 +65,10 @@ namespace :akamai do
     #Publisher::FTP(ftp_username, ftp_password, ftp_domain, local_mobileweb_dir, netstorage_mobileweb_dir)
     
     time_elapsed = distance_of_time_in_words(Time.now, time_start)
+    system "afplay /System/Library/Sounds/Glass.aiff"
     Notifier::Status("[Akamai] Publish Complete. 
                       Time Elapsed: #{time_elapsed}", "#{video.filename}")     
-    
+
   end
   
   task :housekeep do

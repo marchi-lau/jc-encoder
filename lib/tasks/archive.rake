@@ -53,7 +53,6 @@ task :archive, [:source] => :environment do |t, args|
   # Publisher::FTP(ftp_username, ftp_password, ftp_domain, source, destination)
   #===================================================================
 
- # FileUtils.rm(source)
   
 
 end

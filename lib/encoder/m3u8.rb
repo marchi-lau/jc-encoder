@@ -14,19 +14,15 @@ module Encoder
                    bitrate = options[:bitrates].first  #No VBR
                 http_domain = options[:http_domain]
                 
-                
                 languages   = options[:languages]
                 languages   = video.languages if languages.nil?
-                
-          
+                        
                   source    = video.source
           video.export_type = self.to_s.split("::").last
           destination = options[:destination]
           
           destination = video.dir_output if destination.nil?
-          
-
-               
+                         
             FileUtils.rm_rf(destination)
             FileUtils.mkdir_p(destination)
             Notifier::Status("[Encode] M3U8 - Start", "#{video.filename}")  
@@ -42,7 +38,7 @@ module Encoder
               filename    = video.file_m3u8(language).gsub(".m3u8","_")
               
           
-              system "mediafilesegmenter '#{file_output}' -f '#{dir_output}' -t 10 -b  '#{http_url}' -B '#{filename}' -i '#{file_m3u8}'"
+              system "mediafilesegmenter '#{file_output}' -f '#{dir_output}' -t 30 -b  '#{http_url}' -B '#{filename}' -i '#{file_m3u8}'"
 
               Notifier::Status("[Encode] M3U8 - Ready", "#{filename}")     
             end

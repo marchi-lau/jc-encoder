@@ -103,7 +103,7 @@ module Encoder
               vid_opts = 'ref=2:mixed-refs:bframes=6:b-pyramid=1:weightb=1:analyse=all:8x8dct=1:subme=7:me=umh:merange=24:filter=-2,-2:trellis=1:no-fast-pskip=1:no-dct-decimate=1:direct=auto'
             
               job = HandBrake::CLI.new(:bin_path => "#{Rails.root.to_s}/bin/HandBrakeCLI", :trace => true).input("#{source}")
-             job.verbose.markers.audio('none').deinterlace.encoder('x264').vb("#{bitrate}").x264opts(vid_opts).output("#{video_mp4}")
+             job.verbose.markers.audio('none').deinterlace.crop('0:0:0:0').encoder('x264').vb("#{bitrate}").x264opts(vid_opts).output("#{video_mp4}")
               
               Notifier::Status("[Encode] MP4 - #{bitrate_video}kbps - Ready", "#{filename}")
             end
