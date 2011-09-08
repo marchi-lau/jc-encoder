@@ -65,7 +65,6 @@ module Encoder
               # Encode Audio Track into AAC
               system "/usr/local/bin/ffmpeg -y -i '#{audio_wav}' '#{audio_aac}' -ac 2 -ab #{bitrate_audio}"
               
-              
               FileUtils.rm(audio_wav, :force => true )
               FileUtils.rm(audio_raw, :force => true )
               
@@ -118,10 +117,13 @@ module Encoder
                 output    = video.file_output(bitrate, "mp4", language)
                 
                # Ensure old version is removed
-               FileUtils.rm(output, :force => true )   
-              
-              system "/usr/local/bin/mp4box -add '#{audio_track}' '#{video_track}' -out '#{output}'"
-              
+               FileUtils.rm(output, :force => true )
+                  
+              if File.exist?(audio_track) # If no audio track hack
+                system "/usr/local/bin/mp4box -add '#{audio_track}' '#{video_track}' -out '#{output}'"
+              else
+                FileUtils.mv(video_track,output)
+              end
               FileUtils.mv(output, destination) if destination != video.dir_output
             end            
           end
