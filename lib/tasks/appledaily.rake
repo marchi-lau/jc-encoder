@@ -1,6 +1,5 @@
 include ActionView::Helpers::DateHelper
 namespace :appledaily do
-  
   task :publish, [:source] => :environment do |t,args|
     time_start = Time.now
     #===================================================================

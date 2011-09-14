@@ -11,7 +11,8 @@ development:
     
 production:
     web_server:            118.142.104.200
-    file_server:           118.142.104.200
-    file_server_user:      "WMS"
+    nas_server:            192.168.100.203
+    nas_share:             "Videos"
+    nas_user:              "WMS"
+    nas_password:          "qweasdzxc"
     ssh_key:               "/Library/WebServer/Documents/video-system/shared/ssh-key/netstorage_key"
-    video_library:        "/Volumes/Videos"

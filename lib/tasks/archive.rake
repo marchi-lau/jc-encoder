@@ -43,7 +43,7 @@ task :archive, [:source] => :environment do |t, args|
   #===================================================================
   if (File.new(source).size / 1024**3) > 1                              
     local_archive_dir = Encoder::MP4(:video => video, :bitrates => archive_bitrates)  
-    FileUtils.rm(source)
+    FileUtils.mv(source, video.dir_output)
   else
     FileUtils.mkdir_p(video.dir_output)
     FileUtils.mv(source, video.dir_output)

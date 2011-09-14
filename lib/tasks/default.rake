@@ -5,6 +5,17 @@ require 'net/http'
     
     source    = args.source
     
+    # Automount NAS Volume
+    username    = AKAMAI_CONFIG['nas_user']
+    password    = AKAMAI_CONFIG['nas_password']
+    nas_server  = AKAMAI_CONFIG['nas_server']
+    nas_share   = AKAMAI_CONFIG['nas_share']
+    
+    if !File.exists?("/Volumes/#{nas_share}")
+      system "mkdir /Volumes/#{nas_share}"
+      system "mount_afp afp://#{username}:#{password}@#{nas_server}/#{nas_share} /Volumes/#{nas_share}"
+    end
+    
     Rake::Task[:akamai].invoke(source)
     Rake::Task[:appledaily].invoke(source)
     Rake::Task[:legacy].invoke(source)
