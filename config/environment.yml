@@ -16,3 +16,5 @@ production:
     nas_user:              "WMS"
     nas_password:          "qweasdzxc"
     ssh_key:               "/Library/WebServer/Documents/video-system/shared/ssh-key/netstorage_key"
+    video_library:        "/Volumes/Videos"
+    
