@@ -9,7 +9,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'mysql2', '~> 0.2.6'
 gem 'state_machine'
 gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
-
+gem 'sys-filesystem'
 gem 'unicorn'
 gem 'devise'
 gem 'capistrano'

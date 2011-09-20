@@ -104,6 +104,7 @@ GEM
     ruby-growl (3.0)
     rubytree (0.8.1)
     state_machine (1.0.2)
+    sys-filesystem (0.3.4)
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
@@ -133,5 +134,6 @@ DEPENDENCIES
   ruby-graphviz
   ruby-growl
   state_machine
+  sys-filesystem
   unicorn
   will_paginate (~> 3.0)
