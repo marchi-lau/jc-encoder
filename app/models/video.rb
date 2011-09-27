@@ -16,10 +16,6 @@ class Video < ActiveRecord::Base
   # ================================================================================================
   # Scope
   # ================================================================================================
-
-  
-  
-  
   
   # ================================================================================================
   # Video URL
@@ -30,7 +26,7 @@ class Video < ActiveRecord::Base
   end
   
   def m3u8
-    File.join("http://streaming.hkjc.edgesuite.net", "#{self.path}/#{self.filename}.m3u8")
+    File.join("http://streaming.hkjc.edgesuite.net", "/mobile", "#{self.path}/#{self.filename}.m3u8")
   end
   
   def url

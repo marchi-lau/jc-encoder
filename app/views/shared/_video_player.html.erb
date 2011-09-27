@@ -1,19 +1,2 @@
-
-	<%= javascript_include_tag "jquery-1.6.2.min.js" %>
-	<%= javascript_include_tag "player/AC_OETags" %>
-	<%= javascript_include_tag "player/akamai_player" %>
-	<script type="text/javascript">
-		$(function() {
-			$().Akamai();					
-			$("#video_div").Akamai('loadVideo', {
-				videosrc: '<%= @video.smil %>',
-				width: 440,
-				height: 360
-			});
-
-		});
-	</script>
-
-	<div id="video_div">
-		&nbsp;
-	</div>
+<div id="video_div">
+	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="HDExamplePlayer" width="560" height="420" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab"> <param name="movie" value="<%= request.protocol + request.host_with_port%>/HKJCPlayer.swf?src=<%=@video.smil%>&amp;math=243232455&amp;volume=auto&amp;volumeControl=vertical&amp;loop=false&amp;autostart=true&amp;bgcolors=#2f559e,#264079&amp;showMeter=false&amp;streamQuality=sq&amp;qualityBtn=true&amp;language=cht"> <param name="quality" value="high"> <param name="bgcolor" value="#111111"> <param name="allowScriptAccess" value="sameDomain"> <param name="allowFullScreen" value="true"> <embed src="<%= request.protocol + request.host_with_port%>/HKJCPlayer.swf?src=<%= @video.smil %>&amp;math=243232455&amp;volume=auto&amp;volumeControl=vertical&amp;loop=false&amp;autostart=true&amp;bgcolors=#2f559e,#264079&amp;showMeter=false&amp;streamQuality=sq&amp;qualityBtn=true&amp;language=cht" quality="high" bgcolor="#111111" width="440" height="360" name="HDExamplePlayer" align="middle" play="true" loop="false" allowscriptaccess="sameDomain" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer">  </object></div>

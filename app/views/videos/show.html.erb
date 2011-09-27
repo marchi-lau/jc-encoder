@@ -21,10 +21,21 @@
 				<%= distance_of_time_in_words(Time.now, @video.created_at) %>
 				<br /><br />
 				<h3>M3U8</h3>
-				<p><%= link_to @video.m3u8,@video.m3u8 %></p>
+				<table with="300px;">
+					<td width="300px;">
+				<span style="display:block;">
+			 	<%= link_to @video.m3u8.gsub("/mobile","/mobile<br/>").html_safe,@video.m3u8 %>
+			</span>
+			</td>
+			</table>
 				<br />
 				<h3>SMIL</h3>
-				<p><%= link_to @video.smil,"http://mediapm.edgesuite.net/edgeflash/public/debug/HDPlayer.html?autostart=true&url= + #{@video.smil}", :target => "_blank" %></p>
+				<table with="300px;">
+					<td width="300px;">
+				<span style="display:block;">
+				<%= link_to @video.smil.gsub("/hdflash","/hdflash<br/>").html_safe,"http://mediapm.edgesuite.net/edgeflash/public/debug/HDPlayer.html?autostart=true&url= + #{@video.smil}", :target => "_blank" %></span>
+				</td>
+				</table>
 			</div>
 			
 		</div>

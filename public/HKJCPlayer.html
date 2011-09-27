@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>HKJC Akamai Video Player</title>
+	<style type="text/css">
+		body { margin: 0px; padding:0; background: white; font-family: Helvetica, Arial; text-align: center; }
+		.wrapper { margin: 0 auto; text-align: left; width: 960px; }
+		#video_div { position: absolute; top: 10px; left: 10px; width: 720px; height: 606px; }
+		#playlist_div { position: absolute; top: 10px; left: 740px; width: 220px;}
+		#video_source { width: 200px; }
+	</style>
+	
+	<script src="AC_OETags.js" language="javascript"></script>
+	<script src="js/jquery-1.5.min.js" type="text/javascript"></script>
+	<script src="js/akamai_player.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(function() {
+			$().Akamai();
+						
+			$("#video_div").Akamai('loadVideo', {
+				videosrc: $("#video_source option:first").val(),
+				baseurl: "http://special.hkjc.com/promo/ch/",
+				width: 720,
+				height: 576
+			});
+
+			$("#video_source").change(function(e) {
+				$("#video_div").Akamai('loadVideo', {
+					videosrc: $(this).val(),
+					iossrc: $("#video_source option:selected").data("iossrc")
+				});
+			});
+
+			$("#show_meter").change(function(e) {
+				if ($(this).is(":checked") == true) {
+					$("#video_div").Akamai('loadVideo', {
+						videosrc: $("#video_source").val(),
+						showMeter: true
+					});
+				} else {
+					$("#video_div").Akamai('loadVideo', {
+						videosrc: $("#video_source").val(),
+						showMeter: false
+					});
+				}
+			});
+			
+			$("#show_quality_button").change(function(e) {
+				if ($(this).is(":checked") == true) {
+					$("#video_div").Akamai('loadVideo', {
+						videosrc: $("#video_source").val(),
+						qualityBtn: true
+					});
+				} else {
+					$("#video_div").Akamai('loadVideo', {
+						videosrc: $("#video_source").val(),
+						qualityBtn: false
+					});
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+<div class="wrapper">
+	<div id="video_div">
+		&nbsp;
+	</div>
+
+	<div id="playlist_div">
+		<form action="" id="playlist">
+			<p><label for="playlist">Video Source</label><br />
+				<select name="video_source" id="video_source">
+					<option value="http://mediapm.edgesuite.net/jawyllie/hd-benchmark/earth.smil">DEMO</option>
+					<option value="http://special.hkjc.com/promo/ch/2011-derby/10/special_2011-derby_10.smil">Video 1</option>
+					<option value="2011-derby/10/special_2011-derby_10.smil">Video 1 (Relative Path)</option>
+					<option value="http://iphone.hkjc.edgesuite.net/hdflash/special/2011/2011-music-rock/01/eng/special_2011-music-rock_01_eng.smil">Video 2</option>
+					<option value="http://iphone.hkjc.edgesuite.net/hdflash/special/2011/2011-cm/test-single-01/special_2011-cm_test-single-01.smil">Single Bitrate</option>
+					<option value="http://mediapm.edgesuite.net/jawyllie/edgeflash_benchmark.smil">Live</option>
+					<option value="http://iphone.hkjc.edgesuite.net/hdflash/special/bad/bad.smil">Bad Link Test</option>
+					<option value="http://iphone.hkjc.edgesuite.net/hdflash/replay-full/2011/20110507/03/chi/replay-full_20110507_03_chi.smil">TEST</option>
+				</select>
+			</p>
+			<p>
+				<input type="checkbox" name="show_meter" value="" id="show_meter" /> <label for="show_meter">Show Meter</label>
+			</p>
+			<p>
+				<input type="checkbox" name="show_quality_button" value="" id="show_quality_button" checked="checked" /> <label for="show_quality_button">Show Quality Selection</label>
+			</p>
+		</form>
+	</div>
+</div>
+</body>
+</html>
