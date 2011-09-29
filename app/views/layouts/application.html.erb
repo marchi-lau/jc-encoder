@@ -22,7 +22,6 @@
 		
 		<%= javascript_include_tag 'jquery' %>
 		<%= javascript_include_tag 'rails' %>
-		<%= javascript_include_tag 'pagination' %>
 		
 
 	<!--[if lte IE 8]>
@@ -54,43 +53,14 @@
 				<ul>                 
 					<li><%= link_to "Videos - Online", :controller => "videos", :action => "category", :category => "Online"%></li>
 					<li><%= link_to "Videos - Offline", :controller => "videos", :action => "category", :category => "Offline"%></li>
-					<li><%= link_to "Videos - Expired", :controller => "videos", :action => "category", :category => "Expire"%></li>
+					<!-- <li><%= link_to "Videos - Expired", :controller => "videos", :action => "category", :category => "Expire"%></li>
 					<li><%= link_to "Videos - Error", :controller => "videos", :action => "category", :category => "Expire"%></li>
-					
+	 -->				
 				</ul>
 				</li>
 			
-			<li> 
-				<%= link_to "Race Replay", :controller => "videos", :action => "category", :category => "replay"%>
-				<ul> 
-					<li><a href="#">2011-2012</a></li>
-					<li><a href="#">2010-2011</a></li>
-					<li><a href="#">2009-2011</a></li>
-					<li class="current">
-						<a href="#">Legacy</a>
-						<ul> 
-						</ul> 
-					</li> 
-				</ul> 
-			</li> 
-			<li><%= link_to "Barrier Trials", :controller => "videos", :action => "category", :category => "brts"%>
-			
-				<ul> 
-					<li><a href="#">2011-2012</a></li>
-					<li><a href="#">2010-2011</a></li>
-					<li><a href="#">2009-2011</a></li>
-					<li class="current">
-						<a href="#">Legacy</a>
-						<ul> 
-							<li><a href="#">Subsubmenu item 001</a></li>
-							<li><a href="#">Subsubmenu item 002</a></li>
-							<li class="current"><a href="#">Subsubmenu item 003</a></li>
-							<li><a href="#">Subsubmenu item 003</a></li>
-							<li><a href="#">Subsubmenu item 005</a></li>
-						</ul> 
-					</li>
-				</ul>
-					</li>
+			<li><%= link_to "Race Replay", :controller => "videos", :action => "category", :category => "replay"%></li> 
+			<li><%= link_to "Barrier Trials", :controller => "videos", :action => "category", :category => "brts"%></li>
 			<li><%= link_to "Postrace", :controller => "videos", :action => "category", :category => "postrace"%></li>
 			<li><%= link_to "Prerace", :controller => "videos", :action => "category", :category => "prerace"%></li>
 			<li><%= link_to "Trackwork", :controller => "videos", :action => "category", :category => "trackwork"%></li>

@@ -4,8 +4,10 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.xml
   def index
-    @videos = Video.page(params[:page]).order('created_at DESC')
-
+    @videos = Video.paginate(:per_page => 25, :page => params[:page]).order(:created_at.desc)
+    respond_to do |format|
+      format.html # index.html.erb
+    end
   end
   
   def category
@@ -26,7 +28,7 @@ class VideosController < ApplicationController
       @videos = Video.where(:filename.matches => "%#{@category}%").order(:created_at.desc).paginate(:per_page => 25, :page => params[:page])
     end
     
-    render :template => 'videos/index'
+    render :action => 'index'
     
   end
   
@@ -34,7 +36,7 @@ class VideosController < ApplicationController
     @videos = Video.where(:filename.matches => "%#{params[:q]}%").order(:created_at.desc).paginate(:per_page => 25, :page => params[:page])
     @title  = "Search Results :: " + params[:q]
     
-    render :template => 'videos/index'
+    render :action => 'index'
     
   end
   

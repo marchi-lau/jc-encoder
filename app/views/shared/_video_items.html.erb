@@ -1,17 +1,16 @@
 <div class="content">
 	<%= will_paginate(@videos) %>
 	
-	<table cellspacing="0" cellpadding="0" border="0" class="table" > 
+	<table cellspacing="0" cellpadding="0" border="0" class="sorting" > 
 		<thead> 
 			<tr> 
 				<th><input type="checkbox" name="check" class="checkall" /></th>
 				<th>Category</th>
 				<th>Filename</th>
 				
-				<th width="100px">Total Views</th>
 				<th>Duration</th>
 				<th width="200px">Date</th>
-				<th>File Size</th>
+				<th width="150px">Age</th>
 				<th>State</th>
 			</tr> 
 		</thead> 
@@ -21,12 +20,11 @@
 				<td><input type="checkbox" name="check" /></td>
 				<td><%= link_to video.category.capitalize, :controller => "videos", :action => "category", :category => video.category %></td>
 			    <td><%= link_to truncate(video.filename, :length => 40), video %></td>
-				<td>---</td>
 			    <td><%= to_minutes(video.duration) %></td>
 				
 				<td><%= video.created_at.in_time_zone.strftime("%d/%m/%y (%a) at %R") %></td>
-				<td>10MB</td>
-				<td >
+				<td><%= distance_of_time_in_words(Time.now, video.created_at) %></td>
+				<td>
 					<% if video.online? %>
 						<%= link_to "Online ", {:controller => "videos", :action => "unpublish",:id => video.id}, :class => "button green" %>
 					<% else %>
