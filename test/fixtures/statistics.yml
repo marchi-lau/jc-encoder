@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  encoded_at: 2011-09-29
+  times: 1
+
+two:
+  encoded_at: 2011-09-29
+  times: 1

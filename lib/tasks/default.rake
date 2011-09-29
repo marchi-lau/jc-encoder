@@ -2,8 +2,8 @@ require 'open-uri'
 require 'net/http'
   task :export, [:source] => :environment do |t, args|
     time_start = Time.now
-    
-    source    = args.source
+    @statistic = Statistic.find_or_create_by_encoded_at(Date.today)
+    source     = args.source
     
     # Automount NAS Volume
     username    = ENV_CONFIG['nas_user']
@@ -21,7 +21,9 @@ require 'net/http'
     Rake::Task[:legacy].invoke(source)
     Rake::Task[:archive].invoke(source)
     
-    time_elapsed = distance_of_time_in_words(Time.now, time_start)
+    time_elapsed = distance_of_time_in_words(Time.now, time_start)    
+    @statistic.times = @statistic.times + 1
+    @statistic.save
     
     Notifier::Status("[All Tasks] Complete. 
                       Time Elapsed: #{time_elapsed}", "#{source}")     
