@@ -48,8 +48,36 @@
 				<%= render :partial => "shared/video_player"%>
 			</div>
 		</div>
-		
-
+		<div class="section">
+			<div class="box small">
+				<div class="title">
+					<h2>m3u8</h2>
+				</div>
+				<div class="content"><%= link_to qrcode(@video.m3u8), @video.m3u8 %>
+				</div>
+			</div>
+			<div class="box small">
+				<div class="title">
+					<h2>700kbps</h2>
+				</div>
+				<div class="content"><%= link_to qrcode(@video.mp4(700)), "http://mediapm.edgesuite.net/edgeflash/public/debug/HDPlayer.html?autostart=true&url= + #{@video.mp4(700)}"%>
+				</div>
+			</div>
+			<div class="box small">
+				<div class="title">
+					<h2>1200kbps</h2>
+				</div>
+				<div class="content"><%= link_to qrcode(@video.mp4(1200)), "http://mediapm.edgesuite.net/edgeflash/public/debug/HDPlayer.html?autostart=true&url= + #{@video.mp4(1200)}"%>
+				</div>
+			</div>
+			<div class="box small">
+				<div class="title">
+					<h2>Play.asp</h2>
+				</div>
+				<div class="content"><%= qrcode(@video.m3u8)%>
+				</div>
+			</div>
+		</div>
 	</div>
-
+	
 

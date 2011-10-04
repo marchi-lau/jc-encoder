@@ -29,6 +29,10 @@ class Video < ActiveRecord::Base
     File.join("http://iphone.hkjc.edgesuite.net", "/mobile", "#{self.path}/#{self.filename}.m3u8")
   end
   
+  def mp4(bitrate)
+    File.join("http://streaming.hkjc.edgesuite.net","/hdflash", "/#{self.path}/#{self.filename}_#{bitrate}kbps.mp4")
+  end
+  
   def url
     "http://#{ENV_CONFIG['web_server']}/videos/#{self.id}"
   end
@@ -40,6 +44,7 @@ class Video < ActiveRecord::Base
   def upload_txt
     File.join("http://streaming.hkjc.edgesuite.net", "/hdflash",  "#{self.path}/upload.txt")
   end
+  
   # ================================================================================================
   # Video Name Attributes
   # ================================================================================================

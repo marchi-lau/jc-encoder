@@ -5,8 +5,7 @@ class DashboardController < ApplicationController
   # GET /videos.xml
   def index
     @title = "Recent Videos"
-    
-    @videos = Video.paginate(:per_page => 25, :page => params[:page]).order(:created_at.desc)
+    @videos = Video.paginate(:per_page => 25, :page => params[:page], :limit => 100)
 
     respond_to do |format|
       format.html # index.html.erb
