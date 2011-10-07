@@ -31,14 +31,15 @@ role :db, "192.168.100.201", :primary => true
 #role :db,  "your slave db-server here"
 namespace :ssh do
   task :setup do
+  servers = ["192.168.100.194", "192.168.100.194", "192.168.100.201"]
   system "ssh-keygen -t dsa"
   puts "Copying Public Keys to Server..."
   puts "Logging in with #{user}"
-  
-  system "scp '/Volumes/Macintosh HD/Users/Marchi/.ssh/id_dsa.pub' #{user}@192.168.100.194:'~/'"
+  servers.each do |server|
+  system "scp '/Volumes/Macintosh HD/Users/Marchi/.ssh/id_dsa.pub' #{user}@#{server}:'~/'"
   run "mkdir -p ~/.ssh && chmod 700 ~/.ssh && touch -f ~/.ssh/authorized_keys2 && cat ~/id_dsa.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
 #  scp ./racingfocus_20201231_01_chi.mov Administrator@118.142.104.200:"/Volumes/Videos/Dropbox/Dropbox\\ -\\ Default"
-
+  end
   end
 end
 # Solve Bundle

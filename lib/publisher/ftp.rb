@@ -10,12 +10,12 @@ module Publisher
         def upload(ftp_username, ftp_password, ftp_domain, source, destination)
            upload_txt = "#{Rails.root.to_s}/lib/publisher/upload.txt"
            File.open(upload_txt, 'w') {|f| f.write("") }
+           
            Notifier::Status("[FTP] #{ftp_domain} - Start", "#{source}")
            
            language = destination.split("/").last
            
-           
-           if language.include?("-")
+           if language.include?("chi-") or language.include?("eng-") or language.include?("pth-") or language.include?("can-")
              destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ').chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
            elsif language.include?("chi") or language.include?("eng") or language.include?("pth") or language.include?("can")
              destination = destination.chomp("/").slice(/.+\//).chomp("/").gsub(" ", '\\ ')
